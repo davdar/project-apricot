@@ -19,14 +19,22 @@ currentScreenPos :: IORef (Int,Int)
 currentScreenPos = unsafePerformIO $ newIORef (0,0)
 {-# NOINLINE currentScreenPos #-}
 
-worldSize :: (Int,Int)
-worldSize = (100, 100)
+worldW = 100
+worldH = 100
+worldSize = (worldW,worldH)
 
-graphicsSize :: (Int,Int)
-graphicsSize = (960, 640)
+graphicsW = 960
+graphicsH = 640
+graphicsSize = (graphicsW,graphicsH)
 
-tileSize :: (Int,Int)
-tileSize = (32,32)
+minScreenW = 0
+minScreenH = 0
+maxScreenW = worldW * tileW - graphicsW
+maxScreenH = worldH * tileH - graphicsH
+
+tileW = 32
+tileH = 32
+tileSize = (tileW,tileH)
 
 scenarioOne :: IO GameState
 scenarioOne = do
@@ -45,8 +53,7 @@ mainDraw action = do
 main :: IO ()
 main = do
   SDL.init [SDL.InitEverything]
-  let (gw,gh) = graphicsSize 
-  SDL.setVideoMode gw gh 32 []
+  SDL.setVideoMode graphicsW graphicsH 32 []
   SDL.setCaption "Project Apricot" "apricot"
   loadAssets
   writeIORef gameState =<< scenarioOne
@@ -75,11 +82,22 @@ checkEvent e = do
   case e of
     SDL.KeyUp (SDL.Keysym k mod uni) ->
       case k of
-        SDL.SDLK_LEFT -> modifyIORef currentScreenPos $ \ (x,y) -> (x-1,y)
-        SDL.SDLK_RIGHT -> modifyIORef currentScreenPos $ \ (x,y) -> (x+1,y)
-        SDL.SDLK_UP -> modifyIORef currentScreenPos $ \ (x,y) -> (x,y-1)
-        SDL.SDLK_DOWN -> modifyIORef currentScreenPos $ \ (x,y) -> (x,y+1)
+        SDL.SDLK_LEFT -> scrollLeft
+        SDL.SDLK_RIGHT -> scrollRight
+        SDL.SDLK_UP -> scrollUp
+        SDL.SDLK_DOWN -> scrollDown
         SDL.SDLK_q -> exit
         _ -> return ()
-    _ -> return ()
+    SDL.MouseMotion x' y' _xdiff _ydiff -> do
+      let (x,y) = (fromIntegral x', fromIntegral y')
+      when (x < 20) scrollLeft
+      when (x > graphicsW - 20) scrollRight
+      when (y < 20) scrollUp
+      when (y > graphicsH - 20) scrollDown
+    _ -> print "yo"
   eventLoop
+  where
+    scrollLeft = modifyIORef currentScreenPos $ \ (x,y) -> (min (x+1) maxScreenW,y)
+    scrollRight = modifyIORef currentScreenPos $ \ (x,y) -> (max (x-1) minScreenW,y)
+    scrollUp = modifyIORef currentScreenPos $ \ (x,y) -> (x, min (y+1) maxScreenH)
+    scrollDown = modifyIORef currentScreenPos $ \ (x,y) -> (x, max (y-1) minScreenH)
