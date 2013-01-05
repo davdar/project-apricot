@@ -14,15 +14,41 @@ LIB_DIRS += $(SDL_LIB_DIR)
 LDLIBS += $(SDL_LIBS)
 
 ifeq ($(PLATFORM),win32)
-	include makefile.win32
+#For windows
+include makefile.win32
+
 else
-	#put non-windows-specific definitions here
-	OBJ_FILES = $(adprefix $(OBJ_DIR)/,$(C_FILES):.c=.o)
+#For everyone else
+MKDIR = mkdir -p
+
+OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o))
+CXXFLAGS += $(addprefix -I,$(HEADER_DIRS))
+LDFLAGS += $(addprefix -L,$(LIB_DIRS))
+LDLIBS := $(addprefix -l,$(LDLIBS))
+
+debug: CXXFLAGS += -pg
+
+$(EXECUTABLE) : $(OBJ_FILES)
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LOADLIBES) $(LDLIBS) 
+
+$(OBJ_DIR)/%.o : %.cpp | $(OBJ_DIR)
+	$(CXX) $(CPPFLAGS) $(CFLAGS) $(CXXFLAGS) -c -o $@ $<
+
+$(DEPS_DIR)/%.d : %.cpp | $(DEPS_DIR)
+	$(CXX) $(CPPFLAGS) $(CFLAGS) $(CXXFLAGS) -MM -o $@.tmp $<
+	sed 's;\<\([^ \t]*\.o\)[ :]*; \1 $@ :;g' < $@.tmp > $@
+	$(RM) $@.tmp
+
 endif
 
 
-.DEFAULT : $(EXECUTABLE)
 debug : $(EXECUTABLE)
+
+$(OBJ_DIR) :
+	$(MKDIR) $(OBJ_DIR)
+
+$(DEPS_DIR) :
+	$(MKDIR) $(DEPS_DIR)
 
 .PHONY : clean
 clean :
@@ -30,6 +56,10 @@ clean :
 	$(RM) dep/*
 	$(RM) $(EXECUTABLE)
 
+
+#include dep files
+ifneq ($(MAKECMDGOALS),clean)
 -include $(patsubst %.cpp,$(DEPS_DIR)/%.d,$(CPP_FILES))
+endif
 
 
