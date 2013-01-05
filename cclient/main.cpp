@@ -4,14 +4,7 @@
 
 #include <stdio.h>
 #include <SDL.h>
-
-void game_loop(){
-	while(true){
-//		handleEvents();
-//		runGame();
-//		render();
-	}
-}
+#include "GameApp.h"
 
 int main(int argc, char* argv[]){
 	if ( SDL_Init(SDL_INIT_AUDIO|SDL_INIT_VIDEO) < 0 ) {
@@ -26,7 +19,9 @@ int main(int argc, char* argv[]){
   
 	printf("Hello World!\n");
 
-	game_loop();
+	GameApp *gameApp = new GameApp();
+
+	gameApp->run();
 
     SDL_Quit();
 

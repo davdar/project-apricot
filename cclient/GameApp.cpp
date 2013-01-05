@@ -1,16 +1,32 @@
-#ifndef _GAME_APP_H
-#define _GAME_APP_H
+#include "GameApp.h"
 
-class GameApp {
-	
-public:
-	void run();
+#include <SDL.h>
 
-protected:
-	virtual void handleEvents(){}
-	virtual void runGame(){}
-	virtual void render(){}
-};
+void GameApp::run(){
+	//Run the game loop
+	while(!this->quit){
+		handleEvents();
+		runGame();
+		render();
+	}
+}
 
 
-#endif
+void GameApp::handleEvents(){
+	SDL_Event event;
+
+	while(SDL_PollEvent( &event )){
+		switch(event.type){
+		case SDL_QUIT:
+			this->quit = true;
+		}
+	}
+}
+
+void GameApp::runGame(){
+
+}
+
+void GameApp::render(){
+
+}
