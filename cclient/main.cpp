@@ -3,6 +3,7 @@
  */
 
 #include <stdio.h>
+#include <SDL.h>
 #include "GameApp.h"
 
 int main(int argc, char* argv[]){

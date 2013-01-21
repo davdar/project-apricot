@@ -1,0 +1,16 @@
+PLATFORM=osx
+
+SDL_LIB_DIR = /usr/local/lib
+SDL_INCLUDE_DIR = /usr/local/include/SDL
+SDL_LIBS = SDL SDLmain
+LDFLAGS = -framework OpenGL -framework Cocoa
+
+#linux example
+#
+#PLATFORM=linux
+#
+#SDL_LIB_DIR = /usr/lib/i386-linux-gnu
+#SDL_INCLUDE_DIR = /usr/include/SDL
+#SDL_LIBS = SDL SDLmain
+
+
