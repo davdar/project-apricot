@@ -11,15 +11,17 @@ DEPS_DIR ?= dep
 EXECUTABLE = apricot
 
 SUBDIRS = 	test \
-			rendering
+			rendering \
+			sdl
+
+CPP_FILES = $(wildcard *.cpp) \
+			$(wildcard test/*.cpp) \
+			$(wildcard rendering/*.cpp) \
+			$(wildcard sdl/*.cpp)
 
 ALL_OBJ_DIRS = $(OBJ_DIR) $(addprefix $(OBJ_DIR)/,$(SUBDIRS))
 ALL_DEPS_DIRS = $(DEPS_DIR) $(addprefix $(DEPS_DIR)/,$(SUBDIRS))
 
-C_FILES = $(wildcard *.c)
-CPP_FILES = $(wildcard *.cpp) \
-			$(wildcard test/*.cpp) \
-			$(wildcard rendering/*.cpp)
 HEADER_DIRS += $(SDL_INCLUDE_DIR)
 LIB_DIRS += $(SDL_LIB_DIR)
 LDLIBS += $(SDL_LIBS)
@@ -32,7 +34,7 @@ else
 #For everyone else
 MKDIR = mkdir -p
 
-OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(C_FILES:.c=.o) $(CPP_FILES:.cpp=.o))
+OBJ_FILES = $(addprefix $(OBJ_DIR)/,$(CPP_FILES:.cpp=.o))
 CXXFLAGS += $(addprefix -I,$(HEADER_DIRS))
 LDFLAGS += $(addprefix -L,$(LIB_DIRS))
 LDLIBS := $(addprefix -l,$(LDLIBS))

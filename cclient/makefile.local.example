@@ -10,6 +10,6 @@ SDL_LIBS = SDL.lib SDLmain.lib
 #
 #SDL_LIB_DIR = /usr/lib/i386-linux-gnu
 #SDL_INCLUDE_DIR = /usr/include/SDL
-#SDL_LIBS = SDL SDLmain
+#SDL_LIBS = SDL SDLmain SDL_image
 
 

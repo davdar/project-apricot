@@ -15,6 +15,8 @@ private:
 	int height;
 };
 
+//Some simple grids for testing
+
 class ConstantGrid : public Grid {
 public:
 	ConstantGrid(int w, int h, int val);
@@ -23,6 +25,17 @@ public:
 
 private:
 	int val;
+};
+
+class CheckerGrid : public Grid {
+public:
+	CheckerGrid(int w, int h, int val1, int val2);
+
+	int sample(int x, int y);
+
+private:
+	int val1;
+	int val2;
 };
 
 
