@@ -4,6 +4,7 @@
 #include "../vector.h"
 
 class Animation;
+class SDL_Surface;
 
 class Sprite {
 
@@ -30,8 +31,10 @@ public:
 	void setAnimation(Animation *in_animation);
 	Animation *getAnimation();
 
-	void setFrame(int in_frame);
-	int getFrame();
+	void setCurrentFrame(int in_frame);
+	int getCurrentFrame();
+
+	SDL_Surface *getAnimationFrame();
 	
 private:
 	Vector2 translation;
@@ -45,7 +48,7 @@ private:
 
 	Animation *animation;
 
-	int frame;
+	int currentFrame;
 };
 
 

@@ -1,9 +1,18 @@
 #include "Sprite.h"
 
-Sprite::Sprite(){}
+#include "SDL.h"
+#include "Animation.h"
+
+Sprite::Sprite()
+:translation(0,0)
+,animation(NULL)
+,currentFrame(0)
+{}
 
 Sprite::Sprite(const Sprite &sprite)
-:translation(sprite.translation), animation(sprite.animation)
+:translation(sprite.translation) 
+,animation(sprite.animation)
+,currentFrame(sprite.currentFrame)
 {}
 
 Sprite::~Sprite(){}
@@ -16,5 +25,9 @@ const Vector2 &Sprite::getTranslation(){ return translation; }
 void Sprite::setAnimation(Animation *in_animation){ animation = in_animation; }
 Animation *Sprite::getAnimation(){ return animation; }
 
-void Sprite::setFrame(int in_frame){ frame = in_frame; }
-int Sprite::getFrame(){ return frame; }
+void Sprite::setCurrentFrame(int in_frame){ currentFrame = in_frame; }
+int Sprite::getCurrentFrame(){ return currentFrame; }
+
+SDL_Surface *Sprite::getAnimationFrame(){
+	return getAnimation()->getFrame(getCurrentFrame());
+}

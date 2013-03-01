@@ -17,7 +17,7 @@ CRTFLAG = -MD
 debug : CRTFLAG = -MDd
 debug : CXXFLAGS += -Od -Yd -Zi -DDEBUG
 
-CPPFLAGS += $(addprefix -I,$(HEADER_DIRS))  
+CPPFLAGS += $(addprefix -I,$(HEADER_DIRS))
 CXXFLAGS += $(CRTFLAG)
 CFLAGS =
 LDFLAGS := -link $(addprefix -LIBPATH:,$(LIB_DIRS)) $(LDFLAGS) -SUBSYSTEM:CONSOLE
@@ -26,10 +26,10 @@ LDLIBS := $(addprefix -DEFAULTLIB:,$(LDLIBS))
 $(EXECUTABLE) : $(OBJ_FILES)
 	$(CXX) -Fe$@ $(OBJ_FILES) $(CXXFLAGS) $(LDFLAGS) $(LOADLIBES) $(LDLIBS)
 
-$(OBJ_DIR)/%.obj : %.cpp $(OBJ_DIR)
+$(OBJ_DIR)/%.obj : %.cpp $$(@D)
 	$(CXX) $< $(CFLAGS) $(CPPFLAGS) $(CXXFLAGS) -Fo$@ -c
 
-$(DEPS_DIR)/%.d : %.cpp $(DEPS_DIR)
+$(DEPS_DIR)/%.d : %.cpp $$(@D)
 	$(CPP) $(CPPFLAGS) -P $<
 	"$(MSYS_BIN)/sed" -n 's/^#line [0-9]* "\(.*\.h\)"/\1/gp' $(notdir $(patsubst %.cpp,%.i,$<)) | "$(MSYS_BIN)/uniq" | "$(MSYS_BIN)/sed" -e '1,1 i $@ $(patsubst %.cpp,$(OBJ_DIR)/%.obj,$<):' -e '$(SYSTEM_INCLUDE_PATTERN) d' | "$(MSYS_BIN)/tr" '\n' ' ' > $@
 	$(RM) $(notdir $(patsubst %.cpp,%.i,$<))

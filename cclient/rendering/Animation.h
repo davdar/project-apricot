@@ -21,7 +21,7 @@ public:
 	int getWidth();
 	int getHeight();
 	int getFrameCount();
-	const SDL_Surface *getFrame(int frameIndex);
+	SDL_Surface *getFrame(int frameIndex);
 
 private:
 	//Prevent default copy-constructor from being created

@@ -1,6 +1,7 @@
 #include "Animation.h"
 
 #include <SDL.h>
+#include <memory>
 
 Animation::Animation(int width, int height, int frameCount, SDL_Surface **frames)
 :width(width),height(height),frameCount(frameCount),frames(frames)
@@ -17,7 +18,7 @@ Animation::~Animation(){
 int Animation::getWidth(){ return width; }
 int Animation::getHeight(){ return height; }
 int Animation::getFrameCount(){ return frameCount; }
-const SDL_Surface *Animation::getFrame(int frameIndex){ 
+SDL_Surface *Animation::getFrame(int frameIndex){ 
 	assert(frameIndex >= 0);
 	assert(frameIndex < frameCount);
 	return frames[frameIndex];

@@ -19,6 +19,7 @@
     <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <OutDir>$(SolutionDir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
@@ -41,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make debug</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>make clean &amp;&amp; make debug</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine>make</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeOutput>apricot.exe</NMakeOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,14 +83,28 @@
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="rendering\Animation.cpp" />
+    <ClCompile Include="rendering\AnimationCatalog.cpp" />
+    <ClCompile Include="rendering\Renderer.cpp" />
+    <ClCompile Include="rendering\SDLRenderer.cpp" />
+    <ClCompile Include="rendering\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />
     <None Include="makefile.local" />
+    <None Include="makefile.win32" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="rendering\Animation.h" />
+    <ClInclude Include="rendering\AnimationCatalog.h" />
+    <ClInclude Include="rendering\Renderer.h" />
+    <ClInclude Include="rendering\SDLRenderer.h" />
+    <ClInclude Include="rendering\Sprite.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,16 +1,12 @@
 #ifndef _RENDERER_H
 #define _RENDERER_H
 
-#include <vector>
-
+class Sprite;
 
 class Renderer {
+public:
 
-
-
-private:
-	std::vector<Sprite*> sprites;
-
+	virtual void drawSprite(Sprite *sprite) = 0;
 };
 
 
