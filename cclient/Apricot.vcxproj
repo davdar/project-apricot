@@ -101,6 +101,7 @@
     <ClInclude Include="rendering\Animation.h" />
     <ClInclude Include="rendering\AnimationCatalog.h" />
     <ClInclude Include="rendering\Renderer.h" />
+    <ClInclude Include="rendering\Scene.h" />
     <ClInclude Include="rendering\SDLRenderer.h" />
     <ClInclude Include="rendering\Sprite.h" />
     <ClInclude Include="types.h" />

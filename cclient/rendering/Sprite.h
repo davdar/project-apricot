@@ -5,6 +5,7 @@
 
 class Animation;
 class SDL_Surface;
+class Renderer;
 
 class Sprite {
 
@@ -34,8 +35,6 @@ public:
 	void setCurrentFrame(int in_frame);
 	int getCurrentFrame();
 
-	SDL_Surface *getAnimationFrame();
-	
 private:
 	Vector2 translation;
 
@@ -50,14 +49,6 @@ private:
 
 	int currentFrame;
 };
-
-
-
-
-
-
-
-
 
 
 

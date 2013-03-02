@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 #include "Animation.h"
+#include "Renderer.h"
 
 Sprite::Sprite()
 :translation(0,0)
@@ -27,7 +28,3 @@ Animation *Sprite::getAnimation(){ return animation; }
 
 void Sprite::setCurrentFrame(int in_frame){ currentFrame = in_frame; }
 int Sprite::getCurrentFrame(){ return currentFrame; }
-
-SDL_Surface *Sprite::getAnimationFrame(){
-	return getAnimation()->getFrame(getCurrentFrame());
-}

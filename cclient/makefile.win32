@@ -18,7 +18,7 @@ debug : CRTFLAG = -MDd
 debug : CXXFLAGS += -Od -Yd -Zi -DDEBUG
 
 CPPFLAGS += $(addprefix -I,$(HEADER_DIRS))
-CXXFLAGS += $(CRTFLAG)
+CXXFLAGS += $(CRTFLAG) -EHsc
 CFLAGS =
 LDFLAGS := -link $(addprefix -LIBPATH:,$(LIB_DIRS)) $(LDFLAGS) -SUBSYSTEM:CONSOLE
 LDLIBS := $(addprefix -DEFAULTLIB:,$(LDLIBS))

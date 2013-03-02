@@ -8,11 +8,16 @@ class Animation;
 class SDL_Surface;
 class Sprite;
 class Renderer;
+class Scene;
 
 /*
  * The main app that drives the game.
  */
 class GameApp {
+public:
+	enum Layer {
+		MAIN = 100
+	};
 	
 public:
 	void run();
@@ -30,7 +35,7 @@ protected:
 
 	//For testing
 	Animation *frog;
-	SDL_Surface *screen;
+	Scene *scene;
 	Sprite *frogSprite;
 	Renderer *renderer;
 

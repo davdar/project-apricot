@@ -7,9 +7,15 @@ class SDL_Surface;
 
 class SDLRenderer : public Renderer {
 public:
-	SDLRenderer(SDL_Surface *screen);
+	SDLRenderer();
+	~SDLRenderer();
 
-	virtual void drawSprite(Sprite *sprite);
+	virtual void init();
+	virtual void uninit();
+
+	virtual void clear();
+	virtual void flip();
+	virtual void drawAnimationFrame(const Vector2 &pos, int frame, Animation *anim);
 
 private:
 	SDL_Surface *screen;
