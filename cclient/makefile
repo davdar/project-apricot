@@ -69,8 +69,8 @@ clean :
 
 
 #include dep files
-#ifneq ($(MAKECMDGOALS),clean)
-#-include $(patsubst %.cpp,$(DEPS_DIR)/%.d,$(CPP_FILES))
-#endif
+ifneq ($(MAKECMDGOALS),clean)
+-include $(patsubst %.cpp,$(DEPS_DIR)/%.d,$(CPP_FILES))
+endif
 
 
