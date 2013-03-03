@@ -6,9 +6,12 @@
 class Grid;
 class Animation;
 class SDL_Surface;
-class Sprite;
+class AnimationSprite;
 class Renderer;
 class Scene;
+class SceneObject;
+class WorldMap;
+
 
 /*
  * The main app that drives the game.
@@ -36,8 +39,10 @@ protected:
 	//For testing
 	Animation *frog;
 	Scene *scene;
-	Sprite *frogSprite;
+	AnimationSprite *frogSprite;
+	SceneObject *frogSceneObject;
 	Renderer *renderer;
+	WorldMap *worldMap;
 
 	SDL_Surface *screen;
 

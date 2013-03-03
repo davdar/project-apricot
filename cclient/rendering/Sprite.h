@@ -5,49 +5,20 @@
 
 class Animation;
 class SDL_Surface;
+class SDL_Rect;
 class Renderer;
 
+/*
+ * class Sprite - Represents a drawable object on the screen
+ */
 class Sprite {
 
 public:
-	Sprite();
-	Sprite(const Sprite &sprite);
-	~Sprite();
+	virtual void draw(SDL_Surface *dst, SDL_Rect *dstRect) const = 0;
 
-	void setTranslation(const Vector2 &in_translation);
-	const Vector2 &getTranslation();
-
-	/*
-	 * TODO:To be implemented at some later date 
-	 *
-	void setScale(const Vector2 &scale);
-	const Vector2 &getScale();
-
-	void setRotation(double rotation);
-	double getRotation();
-
-	*
-	*/
-
-	void setAnimation(Animation *in_animation);
-	Animation *getAnimation();
-
-	void setCurrentFrame(int in_frame);
-	int getCurrentFrame();
-
-private:
-	Vector2 translation;
-
-	/*
-	 *
-	Vector2 scale;
-	double rotation;
-	*
-	*/
-
-	Animation *animation;
-
-	int currentFrame;
+	//Here we could possibly also add
+	//hit(Vector2 pos)
+	//getOwner() //i.e. to get back to the character/player/etc. this sprite represents
 };
 
 

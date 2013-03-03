@@ -4,10 +4,12 @@
 #include <SDL_image.h>
 
 #include "Grid.h"
+#include "WorldMap.h"
 #include "rendering/Animation.h"
-#include "rendering/Sprite.h"
+#include "rendering/AnimationSprite.h"
 #include "rendering/Renderer.h"
 #include "rendering/Scene.h"
+#include "rendering/SceneObject.h"
 
 void GameApp::run(){
 	startup();
@@ -34,7 +36,10 @@ void GameApp::startup(){
 	}
 	
 
-	gameGrid = new ConstantGrid(640, 480, 0);
+	gameGrid = new CheckerGrid(50, 50, 0, 255);
+	worldMap = new WorldMap();
+	worldMap->setMapGrid(gameGrid);
+	
 	renderer = new Renderer(screen);
 
 	SDL_Surface *frogImg = IMG_Load("froggy_32x32.png");
@@ -47,11 +52,14 @@ void GameApp::startup(){
 	frogAnim[0] = frogImg;
 
 	frog = new Animation(frogImg->w, frogImg->h, 1, frogAnim);
-	frogSprite = new Sprite();
+	frogSprite = new AnimationSprite();
 	frogSprite->setAnimation(frog);
 
+	frogSceneObject = new SceneObject(frogSprite, Vector2(0,0), Vector2(32,32));
+
 	scene = new Scene(Vector2(1600, 1600));
-	scene->getLayers()[Layer::MAIN].push_back(frogSprite);
+	scene->getLayers()[Layer::MAIN].push_back(frogSceneObject);
+	scene->getLayers()[Layer::MAIN-1].push_back(new SceneObject(worldMap));
 }
 
 void GameApp::shutdown(){
@@ -72,7 +80,7 @@ void GameApp::handleEvents(){
 		case SDL_MOUSEBUTTONDOWN:
 			pos = Vector2(event.button.x, event.button.y);
 			pos += renderer->getViewportPos();
-			frogSprite->setTranslation(pos);
+			frogSceneObject->setPosition(pos);
 			break;
 		case SDL_KEYDOWN:
 			pos = renderer->getViewportPos();

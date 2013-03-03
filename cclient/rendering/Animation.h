@@ -21,6 +21,7 @@ public:
 	int getWidth();
 	int getHeight();
 	int getFrameCount();
+
 	SDL_Surface *getFrame(int frameIndex);
 
 private:
@@ -30,6 +31,8 @@ private:
 	int width;
 	int height;
 	int frameCount;
+
+	//TODO: This should probably be made to use tiles on a single SDL_Surface at some point
 	SDL_Surface **frames;
 
 

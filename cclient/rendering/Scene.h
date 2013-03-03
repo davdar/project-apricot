@@ -4,9 +4,9 @@
 #include <vector>
 #include <map>
 
-class Sprite;
+class SceneObject;
 
-typedef std::vector<Sprite*> SceneLayer;
+typedef std::vector<SceneObject*> SceneLayer;
 
 /*
  * A Scene represents a configuration of objects that
