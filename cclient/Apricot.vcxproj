@@ -86,7 +86,6 @@
     <ClCompile Include="rendering\Animation.cpp" />
     <ClCompile Include="rendering\AnimationCatalog.cpp" />
     <ClCompile Include="rendering\Renderer.cpp" />
-    <ClCompile Include="rendering\SDLRenderer.cpp" />
     <ClCompile Include="rendering\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +101,6 @@
     <ClInclude Include="rendering\AnimationCatalog.h" />
     <ClInclude Include="rendering\Renderer.h" />
     <ClInclude Include="rendering\Scene.h" />
-    <ClInclude Include="rendering\SDLRenderer.h" />
     <ClInclude Include="rendering\Sprite.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="vector.h" />

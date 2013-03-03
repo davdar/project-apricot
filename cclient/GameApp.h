@@ -39,6 +39,8 @@ protected:
 	Sprite *frogSprite;
 	Renderer *renderer;
 
+	SDL_Surface *screen;
+
 
 private:
 	bool quit; //When this is true, we should quit the game

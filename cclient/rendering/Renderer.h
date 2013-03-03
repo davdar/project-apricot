@@ -7,25 +7,22 @@ class Sprite;
 class Animation;
 class Scene;
 
+class SDL_Surface;
+
 class Renderer {
 public:
-	Renderer();
+	Renderer(SDL_Surface *screen);
 
 	const Vector2 &getViewportPos();
 	void setViewportPos(const Vector2 &pos);
 
-	void renderScene(Scene *scene);
+	void drawScene(Scene *scene);
 
-	virtual void init() = 0;
-	virtual void uninit() = 0;
-
-	virtual void clear() = 0;
-	virtual void flip() = 0;
-
-	virtual void drawAnimationFrame(const Vector2 &pos, int frame, Animation *anim) = 0;
+	void drawAnimationFrame(const Vector2 &pos, int frame, Animation *anim);
 
 private:
 	Vector2 viewportPos;
+	SDL_Surface *screen;
 };
 
 
