@@ -1,5 +1,7 @@
 #include "SceneObject.h"
 
+#include <cstddef>
+
 #include "Sprite.h"
 
 SceneObject::SceneObject():sprite(NULL),position(0,0){}

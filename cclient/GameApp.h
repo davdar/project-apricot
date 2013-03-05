@@ -18,10 +18,7 @@ class WorldMap;
  */
 class GameApp {
 public:
-	enum Layer {
-		MAIN = 100
-	};
-	
+	static const int MAIN_LAYER;	
 public:
 	void run();
 

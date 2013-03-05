@@ -11,6 +11,8 @@
 #include "rendering/Scene.h"
 #include "rendering/SceneObject.h"
 
+const int GameApp::MAIN_LAYER = 100;
+
 void GameApp::run(){
 	startup();
 
@@ -58,8 +60,8 @@ void GameApp::startup(){
 	frogSceneObject = new SceneObject(frogSprite, Vector2(0,0), Vector2(32,32));
 
 	scene = new Scene(Vector2(1600, 1600));
-	scene->getLayers()[Layer::MAIN].push_back(frogSceneObject);
-	scene->getLayers()[Layer::MAIN-1].push_back(new SceneObject(worldMap));
+	scene->getLayers()[MAIN_LAYER].push_back(frogSceneObject);
+	scene->getLayers()[MAIN_LAYER-1].push_back(new SceneObject(worldMap));
 }
 
 void GameApp::shutdown(){
@@ -85,16 +87,16 @@ void GameApp::handleEvents(){
 		case SDL_KEYDOWN:
 			pos = renderer->getViewportPos();
 			switch(event.key.keysym.sym){
-			case SDLKey::SDLK_DOWN:
+			case SDLK_DOWN:
 				pos += Vector2(0, 10);
 				break;
-			case SDLKey::SDLK_UP:
+			case SDLK_UP:
 				pos -= Vector2(0, 10);
 				break;
-			case SDLKey::SDLK_LEFT:
+			case SDLK_LEFT:
 				pos -= Vector2(10, 0);
 				break;
-			case SDLKey::SDLK_RIGHT:
+			case SDLK_RIGHT:
 				pos += Vector2(10, 0);
 				break;
 			}
