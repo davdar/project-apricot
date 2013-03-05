@@ -8,10 +8,13 @@
 #include "rendering/Animation.h"
 #include "rendering/AnimationSprite.h"
 #include "rendering/Renderer.h"
+#include "rendering/SDLRenderer.h"
 #include "rendering/Scene.h"
-#include "rendering/SceneObject.h"
 
 const int GameApp::MAIN_LAYER = 100;
+
+static const int SCREEN_WIDTH = 640;
+static const int SCREEN_HEIGHT = 480;
 
 void GameApp::run(){
 	startup();
@@ -32,17 +35,12 @@ void GameApp::startup(){
         exit(1);
     }
 
-	screen = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-	if(screen == NULL){
-		fprintf(stderr, "Unable to create video window!");
-	}
-	
-
 	gameGrid = new CheckerGrid(50, 50, 0, 255);
 	worldMap = new WorldMap();
 	worldMap->setMapGrid(gameGrid);
 	
-	renderer = new Renderer(screen);
+	renderer = new SDLRenderer();
+	renderer->init(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SDL_Surface *frogImg = IMG_Load("froggy_32x32.png");
 	if ( !frogImg )
@@ -54,20 +52,17 @@ void GameApp::startup(){
 	frogAnim[0] = frogImg;
 
 	frog = new Animation(frogImg->w, frogImg->h, 1, frogAnim);
-	frogSprite = new AnimationSprite();
-	frogSprite->setAnimation(frog);
-
-	frogSceneObject = new SceneObject(frogSprite, Vector2(0,0), Vector2(32,32));
+	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog);
 
 	scene = new Scene(Vector2(1600, 1600));
-	scene->getLayers()[MAIN_LAYER].push_back(frogSceneObject);
-	scene->getLayers()[MAIN_LAYER-1].push_back(new SceneObject(worldMap));
+	scene->getLayers()[MAIN_LAYER].push_back(frogSprite);
+	scene->getLayers()[MAIN_LAYER-1].push_back(worldMap);
 }
 
 void GameApp::shutdown(){
 	delete gameGrid;
 
-	SDL_Quit();
+	renderer->uninit();
 }
 
 void GameApp::handleEvents(){
@@ -82,7 +77,7 @@ void GameApp::handleEvents(){
 		case SDL_MOUSEBUTTONDOWN:
 			pos = Vector2(event.button.x, event.button.y);
 			pos += renderer->getViewportPos();
-			frogSceneObject->setPosition(pos);
+			frogSprite->setPosition(pos);
 			break;
 		case SDL_KEYDOWN:
 			pos = renderer->getViewportPos();
@@ -111,7 +106,8 @@ void GameApp::runGame(){
 }
 
 void GameApp::render(){
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+	renderer->fillRect(Vector4(0,0,SCREEN_WIDTH,SCREEN_HEIGHT),
+						Vector4(0, 0, 0, 1.0));
 	renderer->drawScene(scene);
-	SDL_Flip(screen);
+	renderer->swapBuffer();
 }

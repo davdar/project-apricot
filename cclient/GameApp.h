@@ -5,11 +5,9 @@
 
 class Grid;
 class Animation;
-class SDL_Surface;
 class AnimationSprite;
 class Renderer;
 class Scene;
-class SceneObject;
 class WorldMap;
 
 
@@ -37,11 +35,8 @@ protected:
 	Animation *frog;
 	Scene *scene;
 	AnimationSprite *frogSprite;
-	SceneObject *frogSceneObject;
 	Renderer *renderer;
 	WorldMap *worldMap;
-
-	SDL_Surface *screen;
 
 
 private:

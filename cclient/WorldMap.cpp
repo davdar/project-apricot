@@ -1,24 +1,33 @@
 #include "WorldMap.h"
 
-#include <SDL.h>
 #include "Grid.h"
 
+#include "vector.h"
+#include "rendering/Renderer.h"
+
 static const int MAP_GRID_CELL_WIDTH = 32;
+
+Vector2 WorldMap::getPosition() const { return Vector2(0,0); }
+Vector2 WorldMap::getSize() const { 
+	int width = mapGrid->getWidth()*MAP_GRID_CELL_WIDTH;
+	int height = mapGrid->getHeight()*MAP_GRID_CELL_WIDTH;
+	return Vector2(width, height);
+}
 
 void WorldMap::setMapGrid(Grid *grid){ this->mapGrid = grid; }
 Grid *WorldMap::getMapGrid() const { return mapGrid; }
 
-void WorldMap::draw(SDL_Surface *dst, SDL_Rect *dstRect) const {
+void WorldMap::draw(Renderer *renderer) {
 	for(int gridX = 0; gridX < mapGrid->getWidth(); gridX++){
 		for(int gridY = 0; gridY < mapGrid->getHeight(); gridY++){
-			int color = SDL_MapRGB(dst->format, mapGrid->sample(gridX, gridY), 0, 0);
-			SDL_Rect tileRect = {
-				dstRect->x + gridX*MAP_GRID_CELL_WIDTH,
-				dstRect->y + gridY*MAP_GRID_CELL_WIDTH,
+			Vector4 color(mapGrid->sample(gridX, gridY), 0, 0, 1.0);
+			Vector4 tileBounds(
+				gridX*MAP_GRID_CELL_WIDTH,
+				gridY*MAP_GRID_CELL_WIDTH,
 				MAP_GRID_CELL_WIDTH,
 				MAP_GRID_CELL_WIDTH
-			};
-			SDL_FillRect(dst, &tileRect, color);
+			);	
+			renderer->fillRect(tileBounds, color);
 		}
 	}
 }

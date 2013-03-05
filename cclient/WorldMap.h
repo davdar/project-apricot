@@ -12,7 +12,10 @@ public:
 	void setMapGrid(Grid *grid);
 	Grid *getMapGrid() const;
 
-	virtual void draw(SDL_Surface *dst, SDL_Rect *dstRect) const;
+	virtual Vector2 getPosition() const;
+	virtual Vector2 getSize() const;	
+
+	virtual void draw(Renderer *renderer);
 
 private:
 	Grid *mapGrid;

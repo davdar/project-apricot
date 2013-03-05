@@ -86,7 +86,6 @@
     <ClCompile Include="rendering\Animation.cpp" />
     <ClCompile Include="rendering\AnimationSprite.cpp" />
     <ClCompile Include="rendering\Renderer.cpp" />
-    <ClCompile Include="rendering\SceneObject.cpp" />
     <ClCompile Include="rendering\Sprite.cpp" />
     <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
@@ -103,7 +102,6 @@
     <ClInclude Include="rendering\AnimationSprite.h" />
     <ClInclude Include="rendering\Renderer.h" />
     <ClInclude Include="rendering\Scene.h" />
-    <ClInclude Include="rendering\SceneObject.h" />
     <ClInclude Include="rendering\Sprite.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="vector.h" />

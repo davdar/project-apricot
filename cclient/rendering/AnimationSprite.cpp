@@ -1,25 +1,31 @@
 #include "AnimationSprite.h"
 
-#include <SDL.h>
 #include "Animation.h"
+#include "Renderer.h"
 
-AnimationSprite::AnimationSprite()
-:animation(NULL),currentFrame(0)
+AnimationSprite::AnimationSprite(const Vector2 &position,
+								const Vector2 &size,
+								int frame,
+								Animation *animation)
+:position(position)
+,size(size)
+,frame(frame)
+,animation(animation)
 {}
 
-void AnimationSprite::setAnimation(Animation *in_animation){ animation = in_animation; }
+Vector2 AnimationSprite::getPosition() const { return position; }
+void AnimationSprite::setPosition(const Vector2 &position){ this->position = position; }
+
+Vector2 AnimationSprite::getSize() const { return size; }
+void AnimationSprite::setSize(const Vector2 &size){ this->size = size; }
+
+
 Animation *AnimationSprite::getAnimation() const { return animation; }
+void AnimationSprite::setAnimation(Animation *animation){ this->animation = animation; }
 
-void AnimationSprite::setCurrentFrame(int in_frame){ currentFrame = in_frame; }
-int AnimationSprite::getCurrentFrame() const { return currentFrame; }
+int AnimationSprite::getFrame() const { return frame; }
+void AnimationSprite::setFrame(int frame){ this->frame = frame; }
 
-void AnimationSprite::draw(SDL_Surface *dst, SDL_Rect *dstRect) const {
-	SDL_Surface *frame = getAnimation()->getFrame(getCurrentFrame());
-	SDL_Rect frameRect = {
-		0, 0,
-		animation->getWidth(),
-		animation->getHeight()
-	};
-	SDL_BlitSurface(frame, &frameRect, dst, dstRect);
+void AnimationSprite::draw(Renderer *renderer){
+	renderer->drawAnimationFrame(getPosition(), getSize(), getFrame(), getAnimation());
 }
-

@@ -38,7 +38,7 @@ CXXFLAGS += $(addprefix -I,$(HEADER_DIRS))
 LDFLAGS += $(addprefix -L,$(LIB_DIRS))
 LDLIBS := $(addprefix -l,$(LDLIBS))
 
-debug: CXXFLAGS += -pg
+debug: CXXFLAGS += -pg -g
 
 $(EXECUTABLE) : $(OBJ_FILES)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LOADLIBES) $(LDLIBS) 

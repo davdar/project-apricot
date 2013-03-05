@@ -5,22 +5,32 @@
 
 class Animation;
 
+/*
+ * A generic animation sprite
+ */
 class AnimationSprite : public Sprite {
 public:
-	AnimationSprite();
+	AnimationSprite(const Vector2 &position, const Vector2 &size, int frame, Animation *animation);
 
-	void setAnimation(Animation *in_animation);
+	virtual Vector2 getPosition() const;
+	void setPosition(const Vector2 &pos);
+
+	virtual Vector2 getSize() const;
+	void setSize(const Vector2 &size);
+
 	Animation *getAnimation() const;
+	void setAnimation(Animation *animation);
+	
+	int getFrame() const;
+	void setFrame(int frame);
 
-	void setCurrentFrame(int in_frame);
-	int getCurrentFrame() const;
-
-	virtual void draw(SDL_Surface *dst, SDL_Rect *dstRect) const;
+	virtual void draw(Renderer *renderer);
 
 private:
+	Vector2 position;
+	Vector2 size;
 	Animation *animation;
-
-	int currentFrame;
+	int frame;
 };
 
 #endif
