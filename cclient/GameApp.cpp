@@ -35,6 +35,8 @@ void GameApp::startup(){
         exit(1);
     }
 
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+
 	gameGrid = new CheckerGrid(50, 50, 0, 255);
 	worldMap = new WorldMap();
 	worldMap->setMapGrid(gameGrid);
@@ -106,8 +108,10 @@ void GameApp::runGame(){
 }
 
 void GameApp::render(){
+	renderer->setTransform(Identity3x3);
 	renderer->fillRect(Vector4(0,0,SCREEN_WIDTH,SCREEN_HEIGHT),
 						Vector4(0, 0, 0, 1.0));
+	renderer->setTransform(renderer->getDefaultTransform());
 	renderer->drawScene(scene);
 	renderer->swapBuffer();
 }

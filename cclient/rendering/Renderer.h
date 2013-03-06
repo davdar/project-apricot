@@ -2,6 +2,7 @@
 #define _RENDERER_H
 
 #include "../vector.h"
+#include "../matrix.h"
 
 class Sprite;
 class Animation;
@@ -9,12 +10,25 @@ class Scene;
 
 class SDL_Surface;
 
+enum RendererDrawMode {
+	DRAW_MODE_VIEWPORT,
+	DRAW_MODE_SCENE
+};
+
 class Renderer {
 public:
 	Renderer();
 
-	const Vector2 &getViewportPos();
+	const Vector2 &getViewportPos() const;
 	void setViewportPos(const Vector2 &pos);
+
+	const Matrix3x3 &getTransform() const;
+	void setTransform(const Matrix3x3 &transform);
+
+	Matrix3x3 getDefaultTransform() const;
+
+	RendererDrawMode getDrawMode() const;
+	void setDrawMode(RendererDrawMode drawMode);
 
 	void drawScene(Scene *scene);
 
@@ -29,6 +43,8 @@ public:
 
 private:
 	Vector2 viewportPos;
+
+	Matrix3x3 transform;
 };
 
 

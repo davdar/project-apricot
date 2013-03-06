@@ -1,6 +1,9 @@
 #ifndef MATRIX_H
 #define MATRIX_H	
 
+#include <cmath>
+#include <iostream>
+
 #include "types.h"
 #include "vector.h"
 
@@ -10,7 +13,7 @@
 */
 class Matrix {
 public:
-	enum Order {row, col};
+	enum Order {ROW_ORDER, COLUMN_ORDER};
 };
 
 class Matrix2x2;
@@ -34,8 +37,8 @@ public:
     Matrix2x2(const Matrix2x2 &m);
     Matrix2x2(const Matrix3x3 &m);
     Matrix2x2(const Matrix4x4 &m);
-    Matrix2x2(Real v11, Real v12, Real v21, Real 22);
-    Matrix2x2(const Vector2 &v1, const Vector2 &v2, Order order=col);
+    Matrix2x2(Real v11, Real v12, Real v21, Real v22);
+    Matrix2x2(const Vector2 &v1, const Vector2 &v2, Order order=COLUMN_ORDER);
 
     Real &operator() (int row, int col);
     Real operator() (int row, int col) const;
@@ -47,7 +50,7 @@ public:
     Matrix2x2 inverse() const;
 
     void getEigenvalues(Real *lambda1RealPart, Real *lambda1IPart, Real *lambda2RealPart, Real *lambda2IPart) const;
-}
+};
 
 Real determinant(const Matrix2x2 &m);
 
@@ -70,22 +73,22 @@ public:
 	Matrix3x3(Real v11, Real v12, Real v13,
 				Real v21, Real v22, Real v23,
 				Real v31, Real v32, Real v33);
-	Matrix3x3(const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, Order order=col);
-	Matrix3x3(const Vector3 v1[3], Order order=col);
+	Matrix3x3(const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, Order order=COLUMN_ORDER);
+	Matrix3x3(const Vector3 v1[3], Order order=COLUMN_ORDER);
 	
 	Real &operator() (int row, int col);
 	Real operator() (int row, int col) const;
 
 	
-	Matrix3x3 operator* (const Matrix3x3 &m);
-	Vector3 operator* (const Vector3 &v);
+	Matrix3x3 operator* (const Matrix3x3 &m) const;
+	Vector3 operator* (const Vector3 &v) const;
 
 	Matrix3x3 transpose() const;
 	Matrix3x3 inverse() const;
 
-	void load(const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, Order order=col);
-	void load(const Real mat[9], Order order=row);
-	void dump(Real mat[9], Order order=row) const;
+	void load(const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, Order order=COLUMN_ORDER);
+	void load(const Real mat[9], Order order=ROW_ORDER);
+	void dump(Real mat[9], Order order=ROW_ORDER) const;
 };
 
 /*
@@ -94,9 +97,10 @@ public:
 Real determinant(const Matrix3x3 &m);
 
 #ifndef EPSILON
-#define EPSILON = 1e-8;
+#define EPSILON (1.0e-8)
+#endif
 
-Matrix3x3 getRotationAroundAxis(const Vector3 &axis, double theta){
+inline Matrix3x3 getRotationAroundAxis(const Vector3 &axis, double theta){
 	Vector3 r = axis;
 	normalize(r);
 	double ct = cos(theta);
@@ -116,7 +120,7 @@ Matrix3x3 getRotationAroundAxis(const Vector3 &axis, double theta){
 						m20, m21, m22 );
 }
 
-Matrix3x3 getRotationBetweenVectors(const Vector3 &fromVector, const Vector3 &toVector){
+inline Matrix3x3 getRotationBetweenVectors(const Vector3 &fromVector, const Vector3 &toVector){
 	Vector3 normFromVector(fromVector);
 	normalize(normFromVector);
 
@@ -189,8 +193,8 @@ public:
 				Real v21, Real v22, Real v23, Real v24,
 				Real v31, Real v32, Real v33, Real v34,
 				Real v41, Real v42, Real v43, Real v44 );
-	Matrix4x4(const Vector4 &v1, const Vector4 &v2, const Vector4 &v3, const Vector4 &v4, Order order=col);
-	Matrix4x4(const Vector4 v[4], Order order=col);
+	Matrix4x4(const Vector4 &v1, const Vector4 &v2, const Vector4 &v3, const Vector4 &v4, Order order=COLUMN_ORDER);
+	Matrix4x4(const Vector4 v[4], Order order=COLUMN_ORDER);
 
 	Real &operator() (int row, int col);
 	Real operator() (int row, int col) const;
@@ -200,9 +204,9 @@ public:
 
 	Matrix4x4 transpose() const;
 
-	void load(const Vector4 &v1, const Vector4 &v2, const Vector4 &v3, const Vector4 &v4, Order order=col);
-	void load(const Real mat[16], Order order=row);
-	void dump(Real mat[16], Order order=row) const;
+	void load(const Vector4 &v1, const Vector4 &v2, const Vector4 &v3, const Vector4 &v4, Order order=COLUMN_ORDER);
+	void load(const Real mat[16], Order order=ROW_ORDER);
+	void dump(Real mat[16], Order order=ROW_ORDER) const;
 };
 
 /*
@@ -210,7 +214,14 @@ public:
 */
 Real determinant(const Matrix4x4 &m);
 
-
+/*
+|
+| Some constant definitions
+|
+*/
+static const Matrix2x2 Ideniity2x2 = Matrix2x2();
+static const Matrix3x3 Identity3x3 = Matrix3x3();
+static const Matrix4x4 Identity4x4 = Matrix4x4();
 
 /*
 |---------------------------
@@ -255,7 +266,7 @@ inline Matrix2x2::Matrix2x2(const Matrix3x3 &m){
     cell(1,1) = m(1,1);
 }
 
-inline Matrix2x2::Matrix2x2(const Matrix4x3 &m){
+inline Matrix2x2::Matrix2x2(const Matrix4x4 &m){
     cell(0,0) = m(0,0);
     cell(0,1) = m(0,1);
     cell(1,0) = m(1,0);
@@ -271,12 +282,12 @@ inline Matrix2x2::Matrix2x2(Real v11, Real v12, Real v21, Real v22){
 
 inline Matrix2x2::Matrix2x2(const Vector2 &v1, const Vector2 &v2, Order order){
     switch(order){
-    case Order::row:
+    case ROW_ORDER:
         cell(0,0) = v1[0];
         cell(0,1) = v1[1];
         cell(1,0) = v2[0];
         cell(1,1) = v2[1];
-    case Order::col:
+    case COLUMN_ORDER:
         cell(0,0) = v1[0];
         cell(0,1) = v2[0];
         cell(1,0) = v1[1];
@@ -284,30 +295,30 @@ inline Matrix2x2::Matrix2x2(const Vector2 &v1, const Vector2 &v2, Order order){
     }
 }
 
-Real &Matrix2x2::operator() (int row, int col){
+inline Real &Matrix2x2::operator() (int row, int col){
     return data[row][col];
 }
 
-Real Matrix2x2::operator() (int row, int col) const {
+inline Real Matrix2x2::operator() (int row, int col) const {
     return data[row][col];
 }
 
-Matrix2x2 Matrix2x2::operator* (const Matrix2x2 &m) const {
+inline Matrix2x2 Matrix2x2::operator* (const Matrix2x2 &m) const {
     return Matrix2x2(cell(0,0)*m(0,0) + cell(0,1)*m(1,0), cell(0,0)*m(0,1) + cell(0,1)*m(1,1),
                      cell(1,0)*m(0,0) + cell(1,1)*m(1,0), cell(1,0)*m(0,1) + cell(1,1)*m(1,1));
 }
 
-Vector2 Matrix2x2::operator* (const Vector2 *vec) const {
+inline Vector2 Matrix2x2::operator* (const Vector2 &vec) const {
     return Vector2(cell(0,0)*vec[0] + cell(0,1)*vec[1],
                     cell(1,0)*vec[0] + cell(1,1)*vec[1]);
 }
 
-Matrix2x2 Matrix2x2::transpose() const {
+inline Matrix2x2 Matrix2x2::transpose() const {
     return Matrix2x2(cell(0,0), cell(1,0),
                      cell(0,1), cell(1,1));
 }
 
-Matrix2x2 Matrix2x2::inverse() const {
+inline Matrix2x2 Matrix2x2::inverse() const {
     Real det = determinant(*this);
     if(det != 0.0){
         Real detInv = 1.0/det;
@@ -319,10 +330,10 @@ Matrix2x2 Matrix2x2::inverse() const {
     }
 }
 
-void Matrix2x2::getEigenvalues(Real *lambda1RealPart, Real *lambda1IPart, Real *lambda2RealPart, Real *lambda2IPart) const {
+inline void Matrix2x2::getEigenvalues(Real *lambda1RealPart, Real *lambda1IPart, Real *lambda2RealPart, Real *lambda2IPart) const {
     //quadratic formula variables
-    Real qb = -(cell(0,0) + cell(1,1));
-    Real qc = cell(0,0)*cell(1,1) - cell(0,1)*cell(1,0);
+    Real b = -(cell(0,0) + cell(1,1));
+    Real c = cell(0,0)*cell(1,1) - cell(0,1)*cell(1,0);
 
     Real desc = b*b - 4*c;
     if(desc < 0){
@@ -421,7 +432,7 @@ inline Real Matrix3x3::operator() (int row, int col) const {
 	return data[row][col];
 }
 
-inline Matrix3x3 Matrix3x3::operator* (const Matrix3x3 &m){
+inline Matrix3x3 Matrix3x3::operator* (const Matrix3x3 &m) const {
 	Real v11 = data[0][0]*m.data[0][0] + data[0][1]*m.data[1][0] + data[0][2]*m.data[2][0];
 	Real v12 = data[0][0]*m.data[0][1] + data[0][1]*m.data[1][1] + data[0][2]*m.data[2][1];
 	Real v13 = data[0][0]*m.data[0][2] + data[0][1]*m.data[1][2] + data[0][2]*m.data[2][2];
@@ -436,7 +447,7 @@ inline Matrix3x3 Matrix3x3::operator* (const Matrix3x3 &m){
 					v31, v32, v33);
 }
 
-inline Vector3 Matrix3x3::operator* (const Vector3 &v){
+inline Vector3 Matrix3x3::operator* (const Vector3 &v) const {
 	Real v1 = data[0][0]*v[0] + data[0][1]*v[1] + data[0][2]*v[2];
 	Real v2 = data[1][0]*v[0] + data[1][1]*v[1] + data[1][2]*v[2];
 	Real v3 = data[2][0]*v[0] + data[2][1]*v[1] + data[2][2]*v[2];
@@ -466,7 +477,7 @@ inline Matrix3x3 Matrix3x3::inverse() const{
 
 inline void Matrix3x3::load(const Vector3 &v1, const Vector3 &v2, const Vector3 &v3, Order order){
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		data[0][0] = v1[0];
 		data[0][1] = v1[1];
 		data[0][2] = v1[2];
@@ -477,7 +488,7 @@ inline void Matrix3x3::load(const Vector3 &v1, const Vector3 &v2, const Vector3 
 		data[2][1] = v3[1];
 		data[2][2] = v3[2];
 		break;
-	case col:
+	case COLUMN_ORDER:
 		data[0][0] = v1[0];
 		data[0][1] = v2[0];
 		data[0][2] = v3[0];
@@ -493,12 +504,12 @@ inline void Matrix3x3::load(const Vector3 &v1, const Vector3 &v2, const Vector3 
 
 inline void Matrix3x3::load(const Real mat[9], Order order){
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		data[0][0] = mat[0];	data[0][1] = mat[1];	data[0][2] = mat[2];
 		data[1][0] = mat[3];	data[1][1] = mat[4];	data[1][2] = mat[5];
 		data[2][0] = mat[6];	data[2][1] = mat[7];	data[2][2] = mat[8];
 		break;
-	case col:
+	case COLUMN_ORDER:
 		data[0][0] = mat[0];	data[0][1] = mat[3];	data[0][2] = mat[6];
 		data[1][0] = mat[1];	data[1][1] = mat[4];	data[1][2] = mat[7];
 		data[2][0] = mat[2];	data[2][1] = mat[5];	data[2][2] = mat[8];
@@ -508,12 +519,12 @@ inline void Matrix3x3::load(const Real mat[9], Order order){
 
 inline void Matrix3x3::dump(Real mat[9], Order order) const{
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		mat[0] = data[0][0];	mat[1] = data[0][1];	mat[2] = data[0][2];
 		mat[3] = data[1][0];	mat[4] = data[1][1];	mat[5] = data[1][2];
 		mat[6] = data[2][0];	mat[7] = data[2][1];	mat[8] = data[2][2];
 		break;
-	case col:
+	case COLUMN_ORDER:
 		mat[0] = data[0][0];	mat[3] = data[0][1];	mat[6] = data[0][2];
 		mat[1] = data[1][0];	mat[4] = data[1][1];	mat[7] = data[1][2];
 		mat[2] = data[2][0];	mat[5] = data[2][1];	mat[8] = data[2][2];
@@ -639,13 +650,13 @@ inline Matrix4x4 Matrix4x4::transpose() const{
 
 inline void Matrix4x4::load(const Vector4 &v1, const Vector4 &v2, const Vector4 &v3, const Vector4 &v4, Order order){
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		cell(0,0)=v1[0];  cell(0,1)=v1[1];  cell(0,2)=v1[2];  cell(0,3)=v1[3];
 		cell(1,0)=v2[0];  cell(1,1)=v2[1];  cell(1,2)=v2[2];  cell(1,3)=v2[3];
 		cell(2,0)=v3[0];  cell(2,1)=v3[1];  cell(2,2)=v3[2];  cell(2,3)=v3[3];
 		cell(3,0)=v4[0];  cell(3,1)=v4[1];  cell(3,2)=v4[2];  cell(3,3)=v4[3];
 		break;
-	case col:
+	case COLUMN_ORDER:
 		cell(0,0)=v1[0];  cell(0,1)=v2[0];  cell(0,2)=v3[0];  cell(0,3)=v4[0];
 		cell(1,0)=v1[1];  cell(1,1)=v2[1];  cell(1,2)=v3[1];  cell(1,3)=v4[1];
 		cell(2,0)=v1[2];  cell(2,1)=v2[2];  cell(2,2)=v3[2];  cell(2,3)=v4[2];
@@ -656,13 +667,13 @@ inline void Matrix4x4::load(const Vector4 &v1, const Vector4 &v2, const Vector4 
 
 inline void Matrix4x4::load(const Real mat[16], Order order){
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		cell(0,0)=mat[0];  cell(0,1)=mat[1];  cell(0,2)=mat[2];  cell(0,3)=mat[3];
 		cell(1,0)=mat[4];  cell(1,1)=mat[5];  cell(1,2)=mat[6];  cell(1,3)=mat[7];
 		cell(2,0)=mat[8];  cell(2,1)=mat[9];  cell(2,2)=mat[10]; cell(2,3)=mat[11];
 		cell(3,0)=mat[12]; cell(3,1)=mat[13]; cell(3,2)=mat[14]; cell(3,3)=mat[15];
 		break;
-	case col:
+	case COLUMN_ORDER:
 		cell(0,0)=mat[0];  cell(0,1)=mat[4];  cell(0,2)=mat[8];  cell(0,3)=mat[12];
 		cell(1,0)=mat[1];  cell(1,1)=mat[5];  cell(1,2)=mat[9];  cell(1,3)=mat[13];
 		cell(2,0)=mat[2];  cell(2,1)=mat[6];  cell(2,2)=mat[10]; cell(2,3)=mat[14];
@@ -673,13 +684,13 @@ inline void Matrix4x4::load(const Real mat[16], Order order){
 
 inline void Matrix4x4::dump(Real mat[16], Order order) const{
 	switch(order){
-	case row:
+	case ROW_ORDER:
 		mat[0]=cell(0,0);  mat[1]=cell(0,1);  mat[2]=cell(0,2);  mat[3]=cell(0,3);
 		mat[4]=cell(1,0);  mat[5]=cell(1,1);  mat[6]=cell(1,2);  mat[7]=cell(1,3);
 		mat[8]=cell(2,0);  mat[9]=cell(2,1);  mat[10]=cell(2,2); mat[11]=cell(2,3);
 		mat[12]=cell(3,0); mat[13]=cell(3,1); mat[14]=cell(3,2); mat[15]=cell(3,3);
 		break;
-	case col:
+	case COLUMN_ORDER:
 		mat[0]=cell(0,0);  mat[4]=cell(0,1);  mat[8]=cell(0,2);  mat[12]=cell(0,3);
 		mat[1]=cell(1,0);  mat[5]=cell(1,1);  mat[9]=cell(1,2);  mat[13]=cell(1,3);
 		mat[2]=cell(2,0);  mat[6]=cell(2,1);  mat[10]=cell(2,2); mat[14]=cell(2,3);
