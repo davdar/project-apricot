@@ -4,17 +4,20 @@
 #include <SDL_image.h>
 
 #include "Grid.h"
-#include "WorldMap.h"
+#include "gameasset/WorldMap.h"
 #include "rendering/Animation.h"
 #include "rendering/AnimationSprite.h"
 #include "rendering/Renderer.h"
 #include "rendering/SDLRenderer.h"
 #include "rendering/Scene.h"
+#include "sprite/WorldMapSprite.h"
+#include "gameasset/GameAsset.h"
 
 const int GameApp::MAIN_LAYER = 100;
 
 static const int SCREEN_WIDTH = 640;
 static const int SCREEN_HEIGHT = 480;
+static const int MAP_CELL_PIXEL_WIDTH = 32;
 
 void GameApp::run(){
 	startup();
@@ -40,6 +43,8 @@ void GameApp::startup(){
 	gameGrid = new CheckerGrid(50, 50, 0, 255);
 	worldMap = new WorldMap();
 	worldMap->setMapGrid(gameGrid);
+
+	worldMapSprite = new WorldMapSprite(MAP_CELL_PIXEL_WIDTH, worldMap);
 	
 	renderer = new SDLRenderer();
 	renderer->init(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -54,11 +59,11 @@ void GameApp::startup(){
 	frogAnim[0] = frogImg;
 
 	frog = new Animation(frogImg->w, frogImg->h, 1, frogAnim);
-	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog);
+	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog, NullGameAsset::getInstance());
 
 	scene = new Scene(Vector2(1600, 1600));
 	scene->getLayers()[MAIN_LAYER].push_back(frogSprite);
-	scene->getLayers()[MAIN_LAYER-1].push_back(worldMap);
+	scene->getLayers()[MAIN_LAYER-1].push_back(worldMapSprite);
 }
 
 void GameApp::shutdown(){

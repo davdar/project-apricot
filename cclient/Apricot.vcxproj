@@ -80,34 +80,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameApp.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="rendering\Animation.cpp" />
-    <ClCompile Include="rendering\AnimationSprite.cpp" />
-    <ClCompile Include="rendering\Renderer.cpp" />
-    <ClCompile Include="rendering\SDLRenderer.cpp" />
-    <ClCompile Include="rendering\Sprite.cpp" />
-    <ClCompile Include="WorldMap.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="makefile" />
     <None Include="makefile.local" />
     <None Include="makefile.win32" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameApp.h" />
-    <ClInclude Include="Grid.h" />
-    <ClInclude Include="matrix.h" />
-    <ClInclude Include="rendering\Animation.h" />
-    <ClInclude Include="rendering\AnimationSprite.h" />
-    <ClInclude Include="rendering\Renderer.h" />
-    <ClInclude Include="rendering\Scene.h" />
-    <ClInclude Include="rendering\SDLRenderer.h" />
-    <ClInclude Include="rendering\Sprite.h" />
-    <ClInclude Include="types.h" />
-    <ClInclude Include="vector.h" />
-    <ClInclude Include="WorldMap.h" />
+    <ClInclude Include="src\GameApp.h" />
+    <ClInclude Include="src\gameasset\GameAsset.h" />
+    <ClInclude Include="src\gameasset\GameAssetTypes.h" />
+    <ClInclude Include="src\geom.h" />
+    <ClInclude Include="src\Grid.h" />
+    <ClInclude Include="src\matrix.h" />
+    <ClInclude Include="src\rendering\Animation.h" />
+    <ClInclude Include="src\rendering\AnimationSprite.h" />
+    <ClInclude Include="src\rendering\Renderer.h" />
+    <ClInclude Include="src\rendering\Scene.h" />
+    <ClInclude Include="src\rendering\SDLRenderer.h" />
+    <ClInclude Include="src\rendering\Sprite.h" />
+    <ClInclude Include="src\sprite\WorldMapSprite.h" />
+    <ClInclude Include="src\types.h" />
+    <ClInclude Include="src\vector.h" />
+    <ClInclude Include="src\gameasset\WorldMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameApp.cpp" />
+    <ClCompile Include="src\gameasset\GameAsset.cpp" />
+    <ClCompile Include="src\Grid.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\rendering\Animation.cpp" />
+    <ClCompile Include="src\rendering\AnimationSprite.cpp" />
+    <ClCompile Include="src\rendering\Renderer.cpp" />
+    <ClCompile Include="src\rendering\SDLRenderer.cpp" />
+    <ClCompile Include="src\rendering\Sprite.cpp" />
+    <ClCompile Include="src\gameasset\WorldMap.cpp" />
+    <ClCompile Include="src\sprite\WorldMapSprite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

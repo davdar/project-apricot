@@ -5,6 +5,7 @@
 
 class Animation;
 class Renderer;
+class GameAsset;
 
 /*
  * class Sprite - Represents a drawable object on the screen
@@ -17,9 +18,11 @@ public:
 
 	virtual void draw(Renderer *renderer) = 0;
 
-	//Here we could possibly also add
-	//hit(Vector2 pos)
-	//getGameAsset() //i.e. to get back to the character/player/etc. this sprite represents
+	//Test whether the given point intersects this sprite
+	virtual bool hit(const Vector2 &pos) const = 0;
+
+	//Return the game asset that this sprite represents
+	virtual GameAsset *getGameAsset() = 0;
 };
 
 

@@ -9,6 +9,7 @@ class AnimationSprite;
 class Renderer;
 class Scene;
 class WorldMap;
+class WorldMapSprite;
 
 
 /*
@@ -37,6 +38,7 @@ protected:
 	AnimationSprite *frogSprite;
 	Renderer *renderer;
 	WorldMap *worldMap;
+	WorldMapSprite *worldMapSprite;
 
 
 private:

@@ -5,18 +5,26 @@ include makefile.local
 #Can be one of win32, macos, linux
 PLATFORM ?= win32
 
+SRC_DIR ?= src
 OBJ_DIR ?= obj
 DEPS_DIR ?= dep
 EXECUTABLE = apricot
 
+VPATH += $(SRC_DIR)
+
 SUBDIRS = 	test \
 			rendering \
-			sdl
+			gameasset \
+			sprite
 
-CPP_FILES = $(wildcard *.cpp) \
-			$(wildcard test/*.cpp) \
-			$(wildcard rendering/*.cpp) \
-			$(wildcard sdl/*.cpp)
+CPP_FILES_SRC = $(wildcard $(SRC_DIR)/*.cpp) \
+				$(wildcard $(SRC_DIR)/test/*.cpp) \
+				$(wildcard $(SRC_DIR)/rendering/*.cpp) \
+				$(wildcard $(SRC_DIR)/gameasset/*.cpp) \
+				$(wildcard $(SRC_DIR)/sprite/*.cpp)
+
+CPP_FILES = $(patsubst $(SRC_DIR)/%, %, $(CPP_FILES_SRC))
+
 
 ALL_OBJ_DIRS = $(OBJ_DIR) $(addprefix $(OBJ_DIR)/,$(SUBDIRS))
 ALL_DEPS_DIRS = $(DEPS_DIR) $(addprefix $(DEPS_DIR)/,$(SUBDIRS))
