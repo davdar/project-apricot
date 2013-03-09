@@ -88,6 +88,7 @@
     <ClInclude Include="src\GameApp.h" />
     <ClInclude Include="src\gameasset\GameAsset.h" />
     <ClInclude Include="src\gameasset\GameAssetTypes.h" />
+    <ClInclude Include="src\gameasset\Hero.h" />
     <ClInclude Include="src\geom.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\matrix.h" />
@@ -105,6 +106,7 @@
   <ItemGroup>
     <ClCompile Include="src\GameApp.cpp" />
     <ClCompile Include="src\gameasset\GameAsset.cpp" />
+    <ClCompile Include="src\gameasset\Hero.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\rendering\Animation.cpp" />
