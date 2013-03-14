@@ -94,6 +94,7 @@
     <ClInclude Include="src\matrix.h" />
     <ClInclude Include="src\rendering\Animation.h" />
     <ClInclude Include="src\rendering\AnimationSprite.h" />
+    <ClInclude Include="src\rendering\RenderContext.h" />
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\rendering\Scene.h" />
     <ClInclude Include="src\rendering\SDLRenderer.h" />

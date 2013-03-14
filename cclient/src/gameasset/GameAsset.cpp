@@ -2,13 +2,13 @@
 
 #include <cstdlib>
 
-NullGameAsset *NullGameAsset::instance = NULL;
+shared_ptr<NullGameAsset> NullGameAsset::instance;
 
 NullGameAsset::NullGameAsset(){}
 
-NullGameAsset *NullGameAsset::getInstance(){
+shared_ptr<NullGameAsset> NullGameAsset::getInstance(){
 	if(instance == NULL){
-		instance = new NullGameAsset();
+		instance = shared_ptr<NullGameAsset>(new NullGameAsset());
 	}
 	return instance;
 }

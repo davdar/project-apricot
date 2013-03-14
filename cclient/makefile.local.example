@@ -2,7 +2,8 @@ PLATFORM=win32
 
 SDL_LIB_DIR = "C:/SDL-1.2.15/lib/x86"
 SDL_INCLUDE_DIR = "C:/SDL-1.2.15/include"
-SDL_LIBS = SDL.lib SDLmain.lib
+SDL_LIBS = SDL.lib SDLmain.lib SDL_image.lib
+BOOST_DIR = C:/boost_1_53_0
 
 #linux example
 #

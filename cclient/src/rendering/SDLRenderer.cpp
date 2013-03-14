@@ -25,9 +25,12 @@ void SDLRenderer::swapBuffer(){
 	SDL_Flip(screen);
 }
 
+Vector2 SDLRenderer::getSize() const {
+	return Vector2(screen->w, screen->h);
+}
 
-void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, Animation *anim){
-	Vector3 transformedPos = getTransform() * Vector3(pos[0], pos[1], 1);
+void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, Animation *anim, const RenderContext &cxt){
+	Vector3 transformedPos = cxt.getTransform() * Vector3(pos[0], pos[1], 1);
 	
 	//TODO: At some point we could try scaling the animation to the 'size' parameter
 	SDL_Rect srcRect = {
@@ -40,9 +43,10 @@ void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, in
 	SDL_BlitSurface(anim->getFrame(frame), &srcRect, screen, &dstRect);
 }
 
-void SDLRenderer::fillRect(const Vector4 &bounds, const Vector4 &color){
-	Vector3 transformedPos = getTransform() * Vector3(bounds[0], bounds[1], 1);
-	Vector3 transformedSize = getTransform() * Vector3(bounds[2], bounds[3], 0);
+void SDLRenderer::fillRect(const Vector4 &bounds, const Vector4 &color, const RenderContext &cxt){
+	Matrix3x3 transform = cxt.getTransform();
+	Vector3 transformedPos = transform * Vector3(bounds[0], bounds[1], 1);
+	Vector3 transformedSize = transform * Vector3(bounds[2], bounds[3], 0);
 	SDL_Rect dstRect = {
 		transformedPos[0], transformedPos[1], 
 		transformedSize[0], transformedSize[1]

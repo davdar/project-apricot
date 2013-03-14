@@ -9,7 +9,7 @@ AnimationSprite::AnimationSprite(const Vector2 &position,
 								const Vector2 &size,
 								int frame,
 								Animation *animation,
-								GameAsset *gameAsset)
+								shared_ptr<GameAsset> gameAsset)
 :position(position)
 ,size(size)
 ,frame(frame)
@@ -23,7 +23,7 @@ void AnimationSprite::setPosition(const Vector2 &position){ this->position = pos
 Vector2 AnimationSprite::getSize() const { return size; }
 void AnimationSprite::setSize(const Vector2 &size){ this->size = size; }
 
-GameAsset *AnimationSprite::getGameAsset(){ return gameAsset; }
+shared_ptr<GameAsset> AnimationSprite::getGameAsset(){ return gameAsset; }
 
 Animation *AnimationSprite::getAnimation() const { return animation; }
 void AnimationSprite::setAnimation(Animation *animation){ this->animation = animation; }
@@ -31,8 +31,8 @@ void AnimationSprite::setAnimation(Animation *animation){ this->animation = anim
 int AnimationSprite::getFrame() const { return frame; }
 void AnimationSprite::setFrame(int frame){ this->frame = frame; }
 
-void AnimationSprite::draw(Renderer *renderer){
-	renderer->drawAnimationFrame(getPosition(), getSize(), getFrame(), getAnimation());
+void AnimationSprite::draw(Renderer *renderer, const RenderContext &cxt){
+	renderer->drawAnimationFrame(getPosition(), getSize(), getFrame(), getAnimation(), cxt);
 }
 
 bool AnimationSprite::hit(const Vector2 &pos) const {

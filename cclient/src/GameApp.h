@@ -2,6 +2,7 @@
 #define _GAME_APP_H
 
 #include "types.h"
+#include "vector.h"
 
 class Grid;
 class Animation;
@@ -18,7 +19,9 @@ class WorldMapSprite;
 class GameApp {
 public:
 	static const int MAIN_LAYER;	
+
 public:
+	GameApp();
 	void run();
 
 protected:
@@ -31,13 +34,14 @@ protected:
 
 protected:
 	Grid *gameGrid;
+	Vector2 viewportPos;
 
 	//For testing
 	Animation *frog;
 	Scene *scene;
 	AnimationSprite *frogSprite;
 	Renderer *renderer;
-	WorldMap *worldMap;
+	shared_ptr<WorldMap> worldMap;
 	WorldMapSprite *worldMapSprite;
 
 

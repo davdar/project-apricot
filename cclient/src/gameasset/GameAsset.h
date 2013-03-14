@@ -1,6 +1,7 @@
 #ifndef _GAME_ASSET_H
 #define _GAME_ASSET_H
 
+#include "../types.h"
 #include "GameAssetTypes.h"
 
 class GameAsset {
@@ -10,12 +11,12 @@ public:
 
 class NullGameAsset : public GameAsset {
 public:
-	static NullGameAsset *getInstance();
+	static shared_ptr<NullGameAsset> getInstance();
 
 	virtual GameAssetType getType() const;
 
 private:
-	static NullGameAsset *instance;
+	static shared_ptr<NullGameAsset> instance;
 
 	NullGameAsset();
 };

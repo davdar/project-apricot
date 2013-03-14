@@ -1,21 +1,23 @@
 #ifndef _WORLD_MAP_SPRITE
 #define _WORLD_MAP_SPRITE
 
+#include "../types.h"
 #include "../rendering/Sprite.h"
+#include "../rendering/RenderContext.h"
 
 class WorldMap;
 
 class WorldMapSprite : public Sprite {
 public:
-	WorldMapSprite(int gridCellPixelWidth, WorldMap *worldMap);
+	WorldMapSprite(int gridCellPixelWidth, shared_ptr<WorldMap> worldMap);
 
 	virtual Vector2 getPosition() const;
 	virtual Vector2 getSize() const;
 
 	//Return the game asset that this sprite represents
-	virtual GameAsset *getGameAsset();
+	virtual shared_ptr<GameAsset> getGameAsset();
 
-	virtual void draw(Renderer *renderer);
+	virtual void draw(Renderer *renderer, const RenderContext &cxt);
 
 	//Test whether the given point intersects this sprite
 	virtual bool hit(const Vector2 &pos) const;
@@ -23,7 +25,7 @@ public:
 
 private:
 	int gridCellPixelWidth;
-	WorldMap *worldMap;
+	shared_ptr<WorldMap> worldMap;
 };
 
 

@@ -5,7 +5,7 @@
 #include "../Grid.h"
 #include "../rendering/Renderer.h"
 
-WorldMapSprite::WorldMapSprite(int gridCellPixelWidth, WorldMap *worldMap)
+WorldMapSprite::WorldMapSprite(int gridCellPixelWidth, shared_ptr<WorldMap> worldMap)
 :gridCellPixelWidth(gridCellPixelWidth)
 ,worldMap(worldMap)
 {}
@@ -17,9 +17,9 @@ Vector2 WorldMapSprite::getSize() const {
 	return Vector2(pixelWidth, pixelHeight);
 }
 
-GameAsset *WorldMapSprite::getGameAsset(){ return worldMap; }
+shared_ptr<GameAsset> WorldMapSprite::getGameAsset(){ return worldMap; }
 
-void WorldMapSprite::draw(Renderer *renderer){
+void WorldMapSprite::draw(Renderer *renderer, const RenderContext &cxt){
 	Grid *grid = worldMap->getMapGrid();
 
 	for(int gridX = 0; gridX < grid->getWidth(); gridX++){
@@ -31,7 +31,7 @@ void WorldMapSprite::draw(Renderer *renderer){
 				gridCellPixelWidth,
 				gridCellPixelWidth
 			);	
-			renderer->fillRect(tileBounds, color);
+			renderer->fillRect(tileBounds, color, cxt);
 		}
 	}
 }
