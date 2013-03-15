@@ -1,6 +1,7 @@
 #ifndef _RENDERER_H
 #define _RENDERER_H
 
+#include "../types.h"
 #include "../vector.h"
 #include "../matrix.h"
 #include "RenderContext.h"
@@ -25,7 +26,9 @@ public:
 
 	virtual Vector2 getSize() const = 0;
 
-	virtual void drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, Animation *anim, const RenderContext &cxt) = 0;
+	virtual shared_ptr<Animation> loadAnimation(const char *assetName) = 0;
+
+	virtual void drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, shared_ptr<Animation> anim, const RenderContext &cxt) = 0;
 	virtual void fillRect(const Vector4 &bounds, const Vector4 &color, const RenderContext &cxt) = 0;
 };
 

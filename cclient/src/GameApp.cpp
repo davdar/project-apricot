@@ -5,7 +5,7 @@
 
 #include "Grid.h"
 #include "gameasset/WorldMap.h"
-#include "rendering/Animation.h"
+#include "rendering/SDLSurfaceAnimation.h"
 #include "rendering/AnimationSprite.h"
 #include "rendering/Renderer.h"
 #include "rendering/SDLRenderer.h"
@@ -53,16 +53,7 @@ void GameApp::startup(){
 	renderer = new SDLRenderer();
 	renderer->init(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	SDL_Surface *frogImg = IMG_Load("froggy_32x32.png");
-	if ( !frogImg )
-	{
-		printf ( "IMG_Load: %s\n", IMG_GetError () );
-		exit(1);
-	}
-	SDL_Surface **frogAnim = new SDL_Surface*[1];
-	frogAnim[0] = frogImg;
-
-	frog = new Animation(frogImg->w, frogImg->h, 1, frogAnim);
+	frog = renderer->loadAnimation("froggy_32x32.png");
 	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog, NullGameAsset::getInstance());
 
 	scene = new Scene(Vector2(1600, 1600));

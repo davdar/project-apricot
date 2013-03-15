@@ -3,12 +3,13 @@
 #include "Animation.h"
 #include "Renderer.h"
 #include "../geom.h"
+#include "../types.h"
 #include "../gameasset/GameAsset.h"
 
 AnimationSprite::AnimationSprite(const Vector2 &position,
 								const Vector2 &size,
 								int frame,
-								Animation *animation,
+								shared_ptr<Animation> animation,
 								shared_ptr<GameAsset> gameAsset)
 :position(position)
 ,size(size)
@@ -25,8 +26,8 @@ void AnimationSprite::setSize(const Vector2 &size){ this->size = size; }
 
 shared_ptr<GameAsset> AnimationSprite::getGameAsset(){ return gameAsset; }
 
-Animation *AnimationSprite::getAnimation() const { return animation; }
-void AnimationSprite::setAnimation(Animation *animation){ this->animation = animation; }
+shared_ptr<Animation> AnimationSprite::getAnimation() const { return animation; }
+void AnimationSprite::setAnimation(shared_ptr<Animation> animation){ this->animation = animation; }
 
 int AnimationSprite::getFrame() const { return frame; }
 void AnimationSprite::setFrame(int frame){ this->frame = frame; }

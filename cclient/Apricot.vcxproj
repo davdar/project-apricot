@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeBuildCommandLine>make debug</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine>make clean &amp;&amp; make debug</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>make debug</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
     <NMakeOutput>apricot.exe</NMakeOutput>
   </PropertyGroup>
@@ -49,7 +49,7 @@
     <NMakeBuildCommandLine>make</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeReBuildCommandLine>make clean &amp;&amp; make</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>make</NMakeReBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeCleanCommandLine>make clean</NMakeCleanCommandLine>
@@ -98,6 +98,7 @@
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\rendering\Scene.h" />
     <ClInclude Include="src\rendering\SDLRenderer.h" />
+    <ClInclude Include="src\rendering\SDLSurfaceAnimation.h" />
     <ClInclude Include="src\rendering\Sprite.h" />
     <ClInclude Include="src\sprite\WorldMapSprite.h" />
     <ClInclude Include="src\types.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="src\rendering\AnimationSprite.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
     <ClCompile Include="src\rendering\SDLRenderer.cpp" />
+    <ClCompile Include="src\rendering\SDLSurfaceAnimation.cpp" />
     <ClCompile Include="src\rendering\Sprite.cpp" />
     <ClCompile Include="src\gameasset\WorldMap.cpp" />
     <ClCompile Include="src\sprite\WorldMapSprite.cpp" />

@@ -2,6 +2,8 @@
 #define _ANIMATION_H
 
 #include <cassert>
+#include <set>
+
 
 class SDL_Surface;
 
@@ -12,30 +14,31 @@ class SDL_Surface;
  *
  */
 
+
+struct AnimationType {
+	const char *name;
+};
+
 class Animation {
 public:
-	// Takes ownership of 'frames'
-	Animation(int width, int height, int frameCount, SDL_Surface **frames);
+	Animation(int width, int height, int frameCount, const AnimationType *type);
+	
 	~Animation();
 
-	int getWidth();
-	int getHeight();
-	int getFrameCount();
+	int getWidth() const;
+	int getHeight() const;
+	int getFrameCount() const;
 
-	SDL_Surface *getFrame(int frameIndex);
+	const AnimationType *getType() const;
 
 private:
-	//Prevent default copy-constructor from being created
-	Animation(const Animation &anim){ assert(false); }
-
 	int width;
 	int height;
 	int frameCount;
+	const AnimationType *instanceType;
 
-	//TODO: This should probably be made to use tiles on a single SDL_Surface at some point
-	SDL_Surface **frames;
-
-
+private:
+	static std::set<const char*> registeredTypes;
 };
 
 #endif

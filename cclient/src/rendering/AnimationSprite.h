@@ -12,7 +12,7 @@ class Animation;
  */
 class AnimationSprite : public Sprite {
 public:
-	AnimationSprite(const Vector2 &position, const Vector2 &size, int frame, Animation *animation, shared_ptr<GameAsset> gameAsset);
+	AnimationSprite(const Vector2 &position, const Vector2 &size, int frame, shared_ptr<Animation> animation, shared_ptr<GameAsset> gameAsset);
 
 	virtual Vector2 getPosition() const;
 	void setPosition(const Vector2 &pos);
@@ -22,8 +22,8 @@ public:
 
 	virtual shared_ptr<GameAsset> getGameAsset();
 
-	Animation *getAnimation() const;
-	void setAnimation(Animation *animation);
+	shared_ptr<Animation> getAnimation() const;
+	void setAnimation(shared_ptr<Animation> animation);
 	
 	int getFrame() const;
 	void setFrame(int frame);
@@ -35,7 +35,7 @@ public:
 private:
 	Vector2 position;
 	Vector2 size;
-	Animation *animation;
+	shared_ptr<Animation> animation;
 	shared_ptr<GameAsset> gameAsset;
 	int frame;
 };

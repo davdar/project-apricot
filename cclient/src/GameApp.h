@@ -37,7 +37,7 @@ protected:
 	Vector2 viewportPos;
 
 	//For testing
-	Animation *frog;
+	shared_ptr<Animation> frog;
 	Scene *scene;
 	AnimationSprite *frogSprite;
 	Renderer *renderer;

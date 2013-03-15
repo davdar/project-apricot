@@ -2,9 +2,11 @@
 
 #include <cstdlib>
 #include <SDL.h>
+#include <SDL_image.h>
 
 #include "Sprite.h"
 #include "Animation.h"
+#include "SDLSurfaceAnimation.h"
 
 SDLRenderer::SDLRenderer():screen(NULL){}
 
@@ -29,7 +31,26 @@ Vector2 SDLRenderer::getSize() const {
 	return Vector2(screen->w, screen->h);
 }
 
-void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, Animation *anim, const RenderContext &cxt){
+shared_ptr<Animation> SDLRenderer::loadAnimation(const char *assetName){
+	//Currently we only support single-frame animations
+	SDL_Surface *surf = IMG_Load(assetName);
+	if ( !surf )
+	{
+		//TODO: Error logging?
+		printf ( "IMG_Load: %s\n", IMG_GetError () );
+		surf = SDL_CreateRGBSurface(SDL_SWSURFACE, 32, 32, 32, 0, 0, 0, 0);
+	}
+	SDL_Surface **frames = new SDL_Surface*[1];
+	frames[0] = surf;
+	return shared_ptr<Animation>(new SDLSurfaceAnimation(surf->w, surf->h, 1, frames));
+}
+
+void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, shared_ptr<Animation> anim, const RenderContext &cxt){
+	if(anim->getType() != &SDLSurfaceAnimation::type){
+		//TODO: Return error code???
+		return;
+	}
+	
 	Vector3 transformedPos = cxt.getTransform() * Vector3(pos[0], pos[1], 1);
 	
 	//TODO: At some point we could try scaling the animation to the 'size' parameter
@@ -40,7 +61,7 @@ void SDLRenderer::drawAnimationFrame(const Vector2 &pos, const Vector2 &size, in
 	};
 
 	SDL_Rect dstRect = { transformedPos[0], transformedPos[1], size[0], size[1] };
-	SDL_BlitSurface(anim->getFrame(frame), &srcRect, screen, &dstRect);
+	SDL_BlitSurface(static_pointer_cast<SDLSurfaceAnimation>(anim)->getFrame(frame), &srcRect, screen, &dstRect);
 }
 
 void SDLRenderer::fillRect(const Vector4 &bounds, const Vector4 &color, const RenderContext &cxt){

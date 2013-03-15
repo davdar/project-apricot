@@ -3,6 +3,7 @@
 
 #include "Renderer.h"
 #include "RenderContext.h"
+#include "../types.h"
 
 class SDL_Surface;
 
@@ -18,7 +19,9 @@ public:
 
 	virtual Vector2 getSize() const;
 
-	virtual void drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, Animation *anim, const RenderContext &cxt);
+	virtual shared_ptr<Animation> loadAnimation(const char *assetName);
+
+	virtual void drawAnimationFrame(const Vector2 &pos, const Vector2 &size, int frame, shared_ptr<Animation> anim, const RenderContext &cxt);
 	virtual void fillRect(const Vector4 &bounds, const Vector4 &color, const RenderContext &cxt);
 
 private:
