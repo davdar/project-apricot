@@ -6,6 +6,7 @@
 #include "../rendering/RenderContext.h"
 
 class WorldMap;
+class GameData;
 
 class WorldMapSprite : public Sprite {
 public:
@@ -15,7 +16,7 @@ public:
 	virtual Vector2 getSize() const;
 
 	//Return the game asset that this sprite represents
-	virtual shared_ptr<GameAsset> getGameAsset();
+	virtual shared_ptr<GameData> getGameData();
 
 	virtual void draw(Renderer *renderer, const RenderContext &cxt);
 

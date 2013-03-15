@@ -4,18 +4,18 @@
 #include "Renderer.h"
 #include "../geom.h"
 #include "../types.h"
-#include "../gameasset/GameAsset.h"
+#include "../gamedata/GameData.h"
 
 AnimationSprite::AnimationSprite(const Vector2 &position,
 								const Vector2 &size,
 								int frame,
 								shared_ptr<Animation> animation,
-								shared_ptr<GameAsset> gameAsset)
+								shared_ptr<GameData> gameData)
 :position(position)
 ,size(size)
 ,frame(frame)
 ,animation(animation)
-,gameAsset(gameAsset)
+,gameData(gameData)
 {}
 
 Vector2 AnimationSprite::getPosition() const { return position; }
@@ -24,7 +24,7 @@ void AnimationSprite::setPosition(const Vector2 &position){ this->position = pos
 Vector2 AnimationSprite::getSize() const { return size; }
 void AnimationSprite::setSize(const Vector2 &size){ this->size = size; }
 
-shared_ptr<GameAsset> AnimationSprite::getGameAsset(){ return gameAsset; }
+shared_ptr<GameData> AnimationSprite::getGameData(){ return gameData; }
 
 shared_ptr<Animation> AnimationSprite::getAnimation() const { return animation; }
 void AnimationSprite::setAnimation(shared_ptr<Animation> animation){ this->animation = animation; }

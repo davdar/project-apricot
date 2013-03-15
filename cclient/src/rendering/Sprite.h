@@ -7,7 +7,7 @@
 
 class Animation;
 class Renderer;
-class GameAsset;
+class GameData;
 
 /*
  * class Sprite - Represents a drawable object on the screen
@@ -24,7 +24,7 @@ public:
 	virtual bool hit(const Vector2 &pos) const = 0;
 
 	//Return the game asset that this sprite represents
-	virtual shared_ptr<GameAsset> getGameAsset() = 0;
+	virtual shared_ptr<GameData> getGameData() = 0;
 };
 
 

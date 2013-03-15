@@ -1,13 +1,13 @@
 #ifndef _WORLD_MAP_H
 #define _WORLD_MAP_H
 
-#include "GameAsset.h"
+#include "GameData.h"
 
 class Grid;
 
-class WorldMap : public GameAsset {
+class WorldMap : public GameData {
 public:
-	virtual GameAssetType getType() const;
+	virtual GameDataType getType() const;
 
 	void setMapGrid(Grid *grid);
 	Grid *getMapGrid() const;

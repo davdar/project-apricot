@@ -4,14 +4,14 @@
 #include <SDL_image.h>
 
 #include "Grid.h"
-#include "gameasset/WorldMap.h"
+#include "gamedata/WorldMap.h"
 #include "rendering/SDLSurfaceAnimation.h"
 #include "rendering/AnimationSprite.h"
 #include "rendering/Renderer.h"
 #include "rendering/SDLRenderer.h"
 #include "rendering/Scene.h"
 #include "sprite/WorldMapSprite.h"
-#include "gameasset/GameAsset.h"
+#include "gamedata/GameData.h"
 
 const int GameApp::MAIN_LAYER = 100;
 
@@ -54,7 +54,7 @@ void GameApp::startup(){
 	renderer->init(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	frog = renderer->loadAnimation("froggy_32x32.png");
-	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog, NullGameAsset::getInstance());
+	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog, NullGameData::getInstance());
 
 	scene = new Scene(Vector2(1600, 1600));
 	scene->getLayers()[MAIN_LAYER].push_back(frogSprite);

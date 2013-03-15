@@ -6,13 +6,14 @@
 #include "RenderContext.h"
 
 class Animation;
+class GameData;
 
 /*
  * A generic animation sprite
  */
 class AnimationSprite : public Sprite {
 public:
-	AnimationSprite(const Vector2 &position, const Vector2 &size, int frame, shared_ptr<Animation> animation, shared_ptr<GameAsset> gameAsset);
+	AnimationSprite(const Vector2 &position, const Vector2 &size, int frame, shared_ptr<Animation> animation, shared_ptr<GameData> gameData);
 
 	virtual Vector2 getPosition() const;
 	void setPosition(const Vector2 &pos);
@@ -20,7 +21,7 @@ public:
 	virtual Vector2 getSize() const;
 	void setSize(const Vector2 &size);
 
-	virtual shared_ptr<GameAsset> getGameAsset();
+	virtual shared_ptr<GameData> getGameData();
 
 	shared_ptr<Animation> getAnimation() const;
 	void setAnimation(shared_ptr<Animation> animation);
@@ -36,7 +37,7 @@ private:
 	Vector2 position;
 	Vector2 size;
 	shared_ptr<Animation> animation;
-	shared_ptr<GameAsset> gameAsset;
+	shared_ptr<GameData> gameData;
 	int frame;
 };
 

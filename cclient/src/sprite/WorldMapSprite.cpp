@@ -1,7 +1,7 @@
 #include "WorldMapSprite.h"
 
 #include "../vector.h"
-#include "../gameasset/WorldMap.h"
+#include "../gamedata/WorldMap.h"
 #include "../Grid.h"
 #include "../rendering/Renderer.h"
 
@@ -17,7 +17,7 @@ Vector2 WorldMapSprite::getSize() const {
 	return Vector2(pixelWidth, pixelHeight);
 }
 
-shared_ptr<GameAsset> WorldMapSprite::getGameAsset(){ return worldMap; }
+shared_ptr<GameData> WorldMapSprite::getGameData(){ return worldMap; }
 
 void WorldMapSprite::draw(Renderer *renderer, const RenderContext &cxt){
 	Grid *grid = worldMap->getMapGrid();

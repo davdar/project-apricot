@@ -14,13 +14,13 @@ VPATH += $(SRC_DIR)
 
 SUBDIRS = 	test \
 			rendering \
-			gameasset \
+			gamedata \
 			sprite
 
 CPP_FILES_SRC = $(wildcard $(SRC_DIR)/*.cpp) \
 				$(wildcard $(SRC_DIR)/test/*.cpp) \
 				$(wildcard $(SRC_DIR)/rendering/*.cpp) \
-				$(wildcard $(SRC_DIR)/gameasset/*.cpp) \
+				$(wildcard $(SRC_DIR)/gamedata/*.cpp) \
 				$(wildcard $(SRC_DIR)/sprite/*.cpp)
 
 CPP_FILES = $(patsubst $(SRC_DIR)/%, %, $(CPP_FILES_SRC))

@@ -86,9 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameApp.h" />
-    <ClInclude Include="src\gameasset\GameAsset.h" />
-    <ClInclude Include="src\gameasset\GameAssetTypes.h" />
-    <ClInclude Include="src\gameasset\Hero.h" />
+    <ClInclude Include="src\gamedata\GameData.h" />
+    <ClInclude Include="src\gamedata\GameDataTypes.h" />
+    <ClInclude Include="src\gamedata\Hero.h" />
     <ClInclude Include="src\geom.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\matrix.h" />
@@ -103,12 +103,12 @@
     <ClInclude Include="src\sprite\WorldMapSprite.h" />
     <ClInclude Include="src\types.h" />
     <ClInclude Include="src\vector.h" />
-    <ClInclude Include="src\gameasset\WorldMap.h" />
+    <ClInclude Include="src\gamedata\WorldMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameApp.cpp" />
-    <ClCompile Include="src\gameasset\GameAsset.cpp" />
-    <ClCompile Include="src\gameasset\Hero.cpp" />
+    <ClCompile Include="src\gamedata\GameData.cpp" />
+    <ClCompile Include="src\gamedata\Hero.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\rendering\Animation.cpp" />
@@ -117,7 +117,7 @@
     <ClCompile Include="src\rendering\SDLRenderer.cpp" />
     <ClCompile Include="src\rendering\SDLSurfaceAnimation.cpp" />
     <ClCompile Include="src\rendering\Sprite.cpp" />
-    <ClCompile Include="src\gameasset\WorldMap.cpp" />
+    <ClCompile Include="src\gamedata\WorldMap.cpp" />
     <ClCompile Include="src\sprite\WorldMapSprite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
