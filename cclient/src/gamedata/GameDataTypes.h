@@ -6,7 +6,7 @@
  * Maybe strings? (How to easily enforce uniqueness?)
  */
 enum GameDataType {
-	GAME_DATA_NONE,
+	GAME_DATA_NULL,
 	GAME_DATA_MAP,
 	GAME_DATA_HERO
 };

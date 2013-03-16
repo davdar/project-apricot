@@ -18,6 +18,7 @@ public:
 	void setSize(const Vector2 &size){ this->size = size; }
 
 	std::map<int, SceneLayer> &getLayers(){ return layers; }
+	const std::map<int, SceneLayer> &getLayers() const { return layers; }
 
 private:
 	//Size in pixels

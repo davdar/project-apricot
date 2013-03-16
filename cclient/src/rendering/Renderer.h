@@ -17,8 +17,8 @@ public:
 	Renderer();
 
 	//Helper for drawing a full scene
-	void drawScene(Scene *scene, const RenderContext &cxt);
-
+	void drawScene(const Scene *scene, const RenderContext &cxt);
+	
 	virtual void init(int screenWidth, int screenHeight) = 0;
 	virtual void uninit() = 0;
 

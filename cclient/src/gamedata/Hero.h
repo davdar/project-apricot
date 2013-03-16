@@ -5,7 +5,10 @@
 
 class Hero : public GameData {
 public:
-	GameDataType getType() const;
+	static const GameDataType type = GAME_DATA_HERO;
+
+public:
+	Hero();
 };
 
 #endif

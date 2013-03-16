@@ -15,4 +15,4 @@ shared_ptr<NullGameData> NullGameData::getInstance(){
 	return instance;
 }
 
-GameDataType NullGameData::getType() const { return GAME_DATA_NONE; } 
+GameDataType NullGameData::getType() const { return GAME_DATA_NULL; } 

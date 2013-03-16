@@ -15,7 +15,7 @@ private:
 
 class NullGameData : public GameData {
 public:
-	static const GameDataType type = GAME_DATA_NONE;
+	static const GameDataType type = GAME_DATA_NULL;
 
 	static shared_ptr<NullGameData> getInstance();
 

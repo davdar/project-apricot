@@ -77,8 +77,10 @@ clean :
 
 
 #include dep files
+ifneq ($(PLATFORM),win32)
 ifneq ($(MAKECMDGOALS),clean)
 -include $(patsubst %.cpp,$(DEPS_DIR)/%.d,$(CPP_FILES))
+endif
 endif
 
 

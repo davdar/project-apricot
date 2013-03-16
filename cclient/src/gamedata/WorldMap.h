@@ -7,7 +7,10 @@ class Grid;
 
 class WorldMap : public GameData {
 public:
-	virtual GameDataType getType() const;
+	static const GameDataType type = GAME_DATA_MAP;
+
+public:
+	WorldMap();
 
 	void setMapGrid(Grid *grid);
 	Grid *getMapGrid() const;

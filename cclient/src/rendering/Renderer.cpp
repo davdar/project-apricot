@@ -9,7 +9,7 @@
 
 Renderer::Renderer(){}
 
-void Renderer::drawScene(Scene *scene, const RenderContext &cxt){
+void Renderer::drawScene(const Scene *scene, const RenderContext &cxt){
 	std::map<int, SceneLayer> layers = scene->getLayers();
 	std::map<int, SceneLayer>::iterator iter;
 	for(iter = layers.begin(); iter != layers.end(); iter++){
