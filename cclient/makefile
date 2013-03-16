@@ -67,6 +67,18 @@ debug : $(EXECUTABLE)
 $(ALL_OBJ_DIRS) $(ALL_DEPS_DIRS) :
 	$(MKDIR) $@ 
 
+.PHONY : cscope
+cscope :
+	cscope -R -b -s $(SRC_DIR) -I$(SDL_INCLUDE_DIR) -I$(BOOST_DIR)
+
+.PHONY : ctags
+ctags : 
+	ctags -R --extra=+fq --c++-kinds=+p --fields=+iaS $(SRC_DIR)
+	$(CXX) -M $(CPPFLAGS) $(CFLAGS) $(CXXFLAGS) $(CPP_FILES_SRC) | \
+	sed -e 's/[\\ ]/\n/g' | sed -e '/^$$/d' -e '/\.o:[\t ]*/d' | \
+	xargs ctags -R -a --extra=+fq --c++-kinds=+p --fields=+iaS
+	
+
 .PHONY : clean
 clean :
 	$(RM) $(addsuffix /*.o,$(ALL_OBJ_DIRS))
