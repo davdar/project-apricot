@@ -39,10 +39,10 @@ protected:
 	//For testing
 	shared_ptr<Animation> frog;
 	Scene *scene;
-	AnimationSprite *frogSprite;
+	shared_ptr<AnimationSprite> frogSprite;
 	Renderer *renderer;
 	shared_ptr<WorldMap> worldMap;
-	WorldMapSprite *worldMapSprite;
+	shared_ptr<WorldMapSprite> worldMapSprite;
 
 
 private:

@@ -20,10 +20,6 @@ public:
 
 	virtual void draw(Renderer *renderer, const RenderContext &cxt);
 
-	//Test whether the given point intersects this sprite
-	virtual bool hit(const Vector2 &pos) const;
-
-
 private:
 	int gridCellPixelWidth;
 	shared_ptr<WorldMap> worldMap;

@@ -3,8 +3,11 @@
 
 #include <vector>
 #include <map>
+#include "../vector.h"
 
-typedef std::vector<Sprite*> SceneLayer;
+class Sprite;
+
+typedef std::vector<shared_ptr<Sprite>> SceneLayer;
 
 /*
  * A Scene represents a configuration of objects that
@@ -12,13 +15,15 @@ typedef std::vector<Sprite*> SceneLayer;
  */
 class Scene {
 public:
-	Scene(const Vector2 &size):size(size){}
+	Scene(const Vector2 &size);
 
-	const Vector2 &getSize(){ return size; }
-	void setSize(const Vector2 &size){ this->size = size; }
+	const Vector2 &getSize() const;
+	void setSize(const Vector2 &size);
 
-	std::map<int, SceneLayer> &getLayers(){ return layers; }
-	const std::map<int, SceneLayer> &getLayers() const { return layers; }
+	std::map<int, SceneLayer> &getLayers();
+	const std::map<int, SceneLayer> &getLayers() const;
+
+	shared_ptr<Sprite> pickSprite(const Vector2 &pos);
 
 private:
 	//Size in pixels

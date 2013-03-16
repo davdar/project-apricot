@@ -30,8 +30,6 @@ public:
 	void setFrame(int frame);
 
 	virtual void draw(Renderer *renderer, const RenderContext &cxt);
-
-	virtual bool hit(const Vector2 &pos) const;
 	
 private:
 	Vector2 position;

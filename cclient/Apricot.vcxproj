@@ -114,6 +114,7 @@
     <ClCompile Include="src\rendering\Animation.cpp" />
     <ClCompile Include="src\rendering\AnimationSprite.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
+    <ClCompile Include="src\rendering\Scene.cpp" />
     <ClCompile Include="src\rendering\SDLRenderer.cpp" />
     <ClCompile Include="src\rendering\SDLSurfaceAnimation.cpp" />
     <ClCompile Include="src\rendering\Sprite.cpp" />

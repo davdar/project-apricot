@@ -48,17 +48,17 @@ void GameApp::startup(){
 	worldMap = shared_ptr<WorldMap>(new WorldMap());
 	worldMap->setMapGrid(gameGrid);
 
-	worldMapSprite = new WorldMapSprite(MAP_CELL_PIXEL_WIDTH, worldMap);
+	worldMapSprite = shared_ptr<WorldMapSprite>(new WorldMapSprite(MAP_CELL_PIXEL_WIDTH, worldMap));
 	
 	renderer = new SDLRenderer();
 	renderer->init(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	frog = renderer->loadAnimation("froggy_32x32.png");
-	frogSprite = new AnimationSprite(Vector2(0,0), Vector2(0,0), 0, frog, NullGameData::getInstance());
+	frogSprite = shared_ptr<AnimationSprite>(new AnimationSprite(Vector2(0,0), Vector2(32,32), 0, frog, NullGameData::getInstance()));
 
 	scene = new Scene(Vector2(1600, 1600));
 	scene->getLayers()[MAIN_LAYER].push_back(frogSprite);
-	scene->getLayers()[MAIN_LAYER-1].push_back(worldMapSprite);
+	scene->getLayers()[MAIN_LAYER-30].push_back(worldMapSprite);
 }
 
 void GameApp::shutdown(){
@@ -70,6 +70,7 @@ void GameApp::shutdown(){
 void GameApp::handleEvents(){
 	SDL_Event event;
 	Vector2 pos;
+	shared_ptr<Sprite> pickedSprite;
 
 	while(SDL_PollEvent( &event )){
 		switch(event.type){
@@ -79,7 +80,14 @@ void GameApp::handleEvents(){
 		case SDL_MOUSEBUTTONDOWN:
 			pos = Vector2(event.button.x, event.button.y);
 			pos += viewportPos;
-			frogSprite->setPosition(pos);
+			pickedSprite = scene->pickSprite(pos);
+			if(pickedSprite){
+				std::cout << "Picked a " 
+							<< str(pickedSprite->getGameData()->getType()) 
+							<< std::endl;
+			} else {
+				std::cout << "Didn't pick anything" << std::endl;
+			}
 			break;
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym){

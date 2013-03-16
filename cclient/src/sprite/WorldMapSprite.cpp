@@ -35,10 +35,3 @@ void WorldMapSprite::draw(Renderer *renderer, const RenderContext &cxt){
 		}
 	}
 }
-
-bool WorldMapSprite::hit(const Vector2 &pos) const {
-	Vector2 size = getSize();
-	return pos[0] >= 0 && pos[0] < size[0]
-			&& pos[1] >= 0 && pos[1] < size[1];
-}
-

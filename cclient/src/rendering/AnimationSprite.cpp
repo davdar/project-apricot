@@ -36,7 +36,3 @@ void AnimationSprite::draw(Renderer *renderer, const RenderContext &cxt){
 	renderer->drawAnimationFrame(getPosition(), getSize(), getFrame(), getAnimation(), cxt);
 }
 
-bool AnimationSprite::hit(const Vector2 &pos) const {
-	return geom::intersectPointRect(pos, getPosition(), getPosition()+getSize());
-}
-

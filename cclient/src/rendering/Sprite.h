@@ -21,7 +21,7 @@ public:
 	virtual void draw(Renderer *renderer, const RenderContext &cxt) = 0;
 
 	//Test whether the given point intersects this sprite
-	virtual bool hit(const Vector2 &pos) const = 0;
+	virtual bool hit(const Vector2 &pos) const;
 
 	//Return the game asset that this sprite represents
 	virtual shared_ptr<GameData> getGameData() = 0;
